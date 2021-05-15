@@ -1,0 +1,49 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# penitenciaR
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The goal of penitenciaR is to ...
+
+A criação deste pacote seguiu o passo a passo disponível em
+
+https://curso-r.github.io/zen-do-r/pacotes.html
+
+Os passos são:
+
+1. usethis::create_package("exemplo.pacote")
+
+2. usethis::use_mit_license("Seu Nome")
+
+3. usethis::use_data_raw()
+
+4. Cópia do arquivo "DadosBO_2021_3(ROUBO DE VEÍCULOS))_completa.xls"
+para a pasta data-raw
+
+5. Adaptação e salvamento em data-raw/DATASET.r
+do script que transforma o dado bruto em dado tidY
+
+6. Inclusão dos pacotes utilizados no data-raw nos Suggests deste pacote:
+usethis::use_package("tidyverse", type = "Suggests")
+usethis::use_package("readxl", type = "Suggests")
+
+6. usethis::use_data(dados_roubo_veiculos_ssp_2020_2021, overwrite = TRUE)
+
+7. Documentação dos dados em "R/dados_roubo_veiculos_ssp_2020_2021.R"
+
+8. devtools::document()
