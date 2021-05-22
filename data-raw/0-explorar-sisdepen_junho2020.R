@@ -5,6 +5,7 @@
 
 # Pacotes -----------------------------------------------------------------
 library(magrittr)
+library(penitenciaR)
 
 
 # Carregar a base ---------------------------------------------------------
@@ -15,26 +16,34 @@ sisdepen2020 <- readxl::read_excel("data-raw/sisdepen/InfopenJunhode2020.xlsx")
 # Explorar ----------------------------------------------------------------
 
 # são 1331 variáveis!
-# criar uma tabela com os nomes
+### criar uma tabela com os nomes
 
 variaveis <- names(sisdepen2020) %>%
+  # transforma em tibble
   tibble::as_tibble() %>%
+  # contar quantos " | " há no nome, pra saber o quão "dividida" tá
   dplyr::mutate(separadores = stringr::str_count(value, " | ")) %>%
+  # ordenar do mais pro menos dividido
   dplyr::arrange(-separadores)
 
-# separar as variaveis por assuntos
+#### separar as variaveis por assuntos
 variaveis <- variaveis %>%
   dplyr::mutate(
+    # itentificar o número do tópico pra podemos agrupar
     topico = stringr::str_extract(value, "^\\d\\.\\d+")
   ) %>%
+  # separar o tópico principal dos demais
   tidyr::separate(col = topico,
                   into = c("topico_principal", "topico_outro"),
                   sep = "\\.") %>%
   dplyr::mutate(
+    # trasnformar em numérico
     dplyr::across(.cols = dplyr::contains("topico"),
                               .fns = as.numeric)) %>%
+  # organizar a ordem
   dplyr::relocate(value, .after = topico_outro)
 
+# Olhar quais são os temas principais de cada variável
 variaveis %>%
   dplyr::group_by(topico_principal) %>%
   dplyr::filter(topico_outro == min(topico_outro)) %>%
@@ -71,9 +80,41 @@ sisdepen2020 <- sisdepen2020 %>%
   dplyr::rename(estabelecimento_nm = `Nome do Estabelecimento`,
                 uf = UF,
                 cod_ibge = `Código IBGE`) %>%
+  # retira colunas inuteis
   dplyr::select(-1:-2)
 
+# verifica se tem duplicados
 sisdepen2020 %>%
-  dplyr::distinct(estabelecimento_nm, uf,  .keep_all = TRUE)
+  janitor::get_dupes(estabelecimento_nm, uf)
 
-# usethis::use_data(sisdepen_junho2020, overwrite = TRUE)
+
+# deu bom!!
+
+
+# Dados estabelecimento ---------------------------------------------------
+
+# pegar as variáveis do bloco 1 e talvez 2
+
+base <- sisdepen2020 %>%
+  dplyr::select(estabelecimento_nm:cod_ibge,
+                dplyr::matches(match = "^[1]\\."))
+
+names(base)
+
+
+base %>%
+  renomeia_coluna("data_inauguracao", "1.6 Data de inauguração") %>%
+  renomeia_coluna("dest_original_genero", "1.1 Estabelecimento originalmente") %>%
+  renomeia_coluna("dest_original_tipo", "1.2 Tipo de estabelecimento") %>%
+  renomeia_coluna("tipo_gestao", "1.4 Gestão do estabelecimento") %>%
+  renomeia_coluna("regimento_interno_possui", "1.8 Possui regimento") %>%
+  renomeia_coluna("regimento_interno_exclusivo", "1.9 O regimento interno") %>%
+  renomeia_coluna("cap_provisorio_masc", "1.3 .* provisórios \\| Masculino") %>%
+  renomeia_coluna("cap_provisorio_fem", "1.3 .* provisórios \\| Feminino") %>%
+  renomeia_coluna("cap_rfechado_masc", "1.3 .* fechado \\| Masculino") %>%
+  renomeia_coluna("cap_rfechado_fem", "1.3 .* fechado \\| Feminino") %>%
+  renomeia_coluna("cap_rsemiaberto_masc", "1.3 .* semiaberto \\| Masculino") %>%
+  renomeia_coluna("cap_rsemiaberto_fem", "1.3 .* semiaberto \\| Feminino")
+    names()
+
+
