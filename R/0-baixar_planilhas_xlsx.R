@@ -7,6 +7,7 @@
 #' @param force Caso o arquivo já exista na sua pasta ele deve ser subscrito? Por padrão é FALSE.
 #'
 #' @return O endereço para o arquivo baixado
+#' @encoding UTF-8
 #' @export
 #'
 

@@ -13,6 +13,7 @@
 #' recolocada.
 #'
 #' @return Tibble renomeada
+#' @encoding UTF-8
 #' @export
 #'
 
