@@ -13,37 +13,48 @@ knitr::opts_chunk$set(
 )
 ```
 
-# penitenciaR
+Leitura, limpeza e primeiras análises das bases de dados do SISDEPEN para fins de conclusão do curso de Faxina de Dados da Curso-R.
 
-<!-- badges: start -->
-<!-- badges: end -->
+Também, espera-se poder disponibilizar esses dados na Base dos Dados. Para isso, seguiremos as orientações:
 
-The goal of penitenciaR is to ...
+<https://basedosdados.github.io/mais/colab_data/>
+------------------------------------
+limpar o que é NA e o que é não se aplica
+
+Eu quero:
+
+-  distribuição no país de unidades prisionais (saber tipo)
+- comparar vagas x lotação no país
+-  evolução da população prisional por ano (desagregar por raça, gênero e crime)
+- comparações por estado: taxas de encarceiramento
+- comparar taxas de encarceiramento com criminalidade
+
+-----------------------------------------------------------------------
+separar:
+base informações das unidades
+base da capacidade (vagas)
+base da lotação
 
 A criação deste pacote seguiu o passo a passo disponível em
 
-https://curso-r.github.io/zen-do-r/pacotes.html
+<https://curso-r.github.io/zen-do-r/pacotes.html>
 
 Os passos são:
 
-1. usethis::create_package("exemplo.pacote")
+1.  usethis::create_package("exemplo.pacote")
 
-2. usethis::use_mit_license("Seu Nome")
+2.  usethis::use_mit_license("Seu Nome")
 
-3. usethis::use_data_raw()
+3.  usethis::use_data_raw()
 
-4. Cópia do arquivo "DadosBO_2021_3(ROUBO DE VEÍCULOS))_completa.xls"
-para a pasta data-raw
+4.  Cópia do arquivo "DadosBO_2021_3(ROUBO DE VEÍCULOS))\_completa.xls" para a pasta data-raw
 
-5. Adaptação e salvamento em data-raw/DATASET.r
-do script que transforma o dado bruto em dado tidY
+5.  Adaptação e salvamento em data-raw/DATASET.r do script que transforma o dado bruto em dado tidY
 
-6. Inclusão dos pacotes utilizados no data-raw nos Suggests deste pacote:
-usethis::use_package("tidyverse", type = "Suggests")
-usethis::use_package("readxl", type = "Suggests")
+6.  Inclusão dos pacotes utilizados no data-raw nos Suggests deste pacote: usethis::use_package("tidyverse", type = "Suggests") usethis::use_package("readxl", type = "Suggests")
 
-6. usethis::use_data(dados_roubo_veiculos_ssp_2020_2021, overwrite = TRUE)
+7.  usethis::use_data(dados_roubo_veiculos_ssp_2020_2021, overwrite = TRUE)
 
-7. Documentação dos dados em "R/dados_roubo_veiculos_ssp_2020_2021.R"
+8.  Documentação dos dados em "R/dados_roubo_veiculos_ssp_2020_2021.R"
 
-8. devtools::document()
+9.  devtools::document()
