@@ -2,4 +2,5 @@
 
 export("%>%")
 export(baixar_sisdepen_xlsx)
+export(renomeia_coluna)
 importFrom(magrittr,"%>%")
