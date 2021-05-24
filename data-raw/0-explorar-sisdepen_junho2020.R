@@ -91,30 +91,4 @@ sisdepen2020 %>%
 # deu bom!!
 
 
-# Dados estabelecimento ---------------------------------------------------
-
-# pegar as variáveis do bloco 1 e talvez 2
-
-base <- sisdepen2020 %>%
-  dplyr::select(estabelecimento_nm:cod_ibge,
-                dplyr::matches(match = "^[1]\\."))
-
-names(base)
-
-
-base %>%
-  renomeia_coluna("data_inauguracao", "1.6 Data de inauguração") %>%
-  renomeia_coluna("dest_original_genero", "1.1 Estabelecimento originalmente") %>%
-  renomeia_coluna("dest_original_tipo", "1.2 Tipo de estabelecimento") %>%
-  renomeia_coluna("tipo_gestao", "1.4 Gestão do estabelecimento") %>%
-  renomeia_coluna("regimento_interno_possui", "1.8 Possui regimento") %>%
-  renomeia_coluna("regimento_interno_exclusivo", "1.9 O regimento interno") %>%
-  renomeia_coluna("cap_provisorio_masc", "1.3 .* provisórios \\| Masculino") %>%
-  renomeia_coluna("cap_provisorio_fem", "1.3 .* provisórios \\| Feminino") %>%
-  renomeia_coluna("cap_rfechado_masc", "1.3 .* fechado \\| Masculino") %>%
-  renomeia_coluna("cap_rfechado_fem", "1.3 .* fechado \\| Feminino") %>%
-  renomeia_coluna("cap_rsemiaberto_masc", "1.3 .* semiaberto \\| Masculino") %>%
-  renomeia_coluna("cap_rsemiaberto_fem", "1.3 .* semiaberto \\| Feminino")
-    names()
-
 
