@@ -2,5 +2,6 @@
 
 export("%>%")
 export(baixar_sisdepen_xlsx)
+export(checa_consistencia_numero)
 export(renomeia_coluna)
 importFrom(magrittr,"%>%")
