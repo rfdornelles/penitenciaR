@@ -19,14 +19,17 @@ base_cep <- base %>%
   dplyr::filter(!is.na(CEP)) %>%
   dplyr::pull(CEP) %>%
   unique() %>%
-#  head(10) %>%
+  #head(10) %>%
   purrr::map_df(~{
    (resposta <- cepR::busca_cep(.x, token = token_cep))
 
     Sys.sleep(1)
 
-    resposta <- resposta %>% dplyr::select(cep, latitude, longitude)
-
+    resposta <- tibble::tibble(
+      "cep" = .x,
+      "lat" = resposta$latitude,
+      "long" = resposta$longitude
+    )
    # print(resposta)
     return(resposta)
 
