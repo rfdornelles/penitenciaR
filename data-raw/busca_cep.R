@@ -18,12 +18,22 @@ base <- readxl::read_excel(here::here(
 base_cep <- base %>%
   dplyr::filter(!is.na(CEP)) %>%
   dplyr::pull(CEP) %>%
+  unique() %>%
+#  head(10) %>%
   purrr::map_df(~{
-    cepR::busca_multi(.x, token = token_cep)
+   (resposta <- cepR::busca_cep(.x, token = token_cep))
+
     Sys.sleep(1)
-  })
+
+    resposta <- resposta %>% dplyr::select(cep, latitude, longitude)
+
+   # print(resposta)
+    return(resposta)
+
+    })
 
 # Salvar base -------------------------------------------------------------
 
 usethis::use_data(base_cep, overwrite = TRUE)
+
 
