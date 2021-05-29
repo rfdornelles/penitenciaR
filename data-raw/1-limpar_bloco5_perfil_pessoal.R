@@ -1,7 +1,7 @@
 ## Rodrigo Dornelles - Sun May 23 19:17:54 2021
 ## penitenciaR
 ## Objetivo: Limpar base SISDEPEN
-## Bloco 4
+## Bloco 5 - perfil pessoal
 
 
 # Pacotes -----------------------------------------------------------
@@ -45,11 +45,11 @@ names(base)
 # Renomear colunas --------------------------------------------------------
 
 base %>%
-  renomeia_coluna("possui_registro_idade", "5.1 .* tem condições de obter") %>%
-  renomeia_coluna("possui_registro_raca", "5.2 .* tem condições de obter") %>%
-  renomeia_coluna("possui_registro_procedencia", "5.3 .* tem condições de obter") %>%
-  renomeia_coluna("possui_registro_estadocivil", "5.3 .* tem condições de obter") %>%
-
+  renomeia_coluna("possui_registro_idade", "5.1 .* tem condi..es de obter") %>%
+  renomeia_coluna("possui_registro_raca", "5.2 .* tem condi..es de obter") %>%
+  renomeia_coluna("possui_registro_procedencia", "5.3 .* tem condi..es de obter") %>%
+  renomeia_coluna("possui_registro_estadocivil", "5.4 .* tem condi..es de obter") %>%
+  renomeia_coluna("possui_registro_pcd", "5.5 .* tem condi..es de obter") %>%
   # quanidade por idade
   # 18 a 24
   renomeia_coluna("quantidade_idade_18a24_fem", "5.1 .* faixa etária .* 18 a 24.* Femi") %>%
@@ -105,11 +105,30 @@ base %>%
   renomeia_coluna("quantidade_procedencia_rural_mas", "5.3 .*proced.ncia.* rural .* Masc") %>%
   renomeia_coluna("quantidade_procedencia_rural_fem", "5.3 .*proced.ncia.* rural .* Femi") %>%
   ## estado civil
+  # solteiro/a
+  renomeia_coluna("quantidade_estadocivil_solteiro", "5.4 .* solteiro.*Total") %>%
+  # casado/a
+  renomeia_coluna("quantidade_estadocivil_casado", "5.4 .* casado.*Total") %>%
+    # união estável
+  renomeia_coluna("quantidade_estadocivil_unestavel", "5.4 .* uni.o est.vel.*Total") %>%
+  # separado/a
+  renomeia_coluna("quantidade_estadocivil_separado", "5.4 .* separado.*Total") %>%
+  # divorciado/a
+  renomeia_coluna("quantidade_estadocivil_divorciado", "5.4 .* divorciado.*Total") %>%
+  # viuvo/a
+  renomeia_coluna("quantidade_estadocivil_viuvo", "5.4 .* vi.vo.*Total") %>%
+  # não informado
+  renomeia_coluna("quantidade_estadocivil_naoinformado", "5.4 .* n.o informado.*Total") %>%
   ## pessoas com deficiência
-  ## grau de instrução
-  ## documentos pessoais
-  ## filhos
-  names()
+  renomeia_coluna("quantidade_pcd_total", "5.5 .* Total de .* Total") %>%
+  renomeia_coluna("quantidade_pcd_total_mas", "5.5 .* Total de .* Masc") %>%
+  renomeia_coluna("quantidade_pcd_total_fem", "5.5 .* Total de .* Fem") %>%
+  #TODO: grau de instrução
+  #TODO: documentos pessoais
+  #TODO: filhos
+  names() %>%
+  stringr::str_c(collapse = "\n") %>%
+  cat()
 
 
 
