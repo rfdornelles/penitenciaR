@@ -20,8 +20,8 @@
 renomeia_coluna <- function (base, nome, coluna, fixa = "cod_ibge") {
   base %>%
     dplyr::rename({{nome}} := dplyr::matches(match = coluna,
-                                             ignore.case = TRUE)) %>%
-    dplyr::relocate({{nome}}, .after = {{fixa}})
+                                             ignore.case = TRUE)) #%>%
+    # dplyr::relocate({{nome}}, .after = {{fixa}})
 }
 
 
