@@ -30,6 +30,7 @@ sisdepen2020 <- base_sisdepen %>%
   dplyr::rename(estabelecimento_nm = `Nome do Estabelecimento`,
                 uf = UF,
                 cod_ibge = `Código IBGE`) %>%
+  dplyr::mutate(cod_ibge = as.character(cod_ibge)) %>%
   # retira colunas inuteis
   dplyr::select(-1:-2)
 
