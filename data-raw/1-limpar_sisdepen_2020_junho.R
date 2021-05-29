@@ -9,16 +9,23 @@
 library(magrittr)
 library(penitenciaR)
 
-# Carregar a base ---------------------------------------------------------
 
-sisdepen2020 <- readxl::read_excel("data-raw/sisdepen/InfopenJunhode2020.xlsx")
+# Lista de arquivos -------------------------------------------------------
+
+lista_arquivos <- fs::dir_info(path = "data-raw/sisdepen/")$path
+
+
+# Carregar a base ---------------------------------------------------------
+path_base <- lista_arquivos[11] # seleciona junho 2020
+
+base_sisdepen <- readxl::read_excel(path_base)
 
 # Vou selecionar como chaves:
 # `Nome do Estabelecimento`
 # `UF`
 # `Código IBGE`
 
-sisdepen2020 <- sisdepen2020 %>%
+sisdepen2020 <- base_sisdepen %>%
   dplyr::rename(estabelecimento_nm = `Nome do Estabelecimento`,
                 uf = UF,
                 cod_ibge = `Código IBGE`) %>%
@@ -79,4 +86,6 @@ base_renomeada <- base %>%
 base_renomeada %>%
   View()
 
+#TODO: comparar as colunas que sobraram pra conferir a confiabilidade
+#TODO: checar se rola fazer para os outros anos
 
