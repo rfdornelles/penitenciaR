@@ -34,18 +34,27 @@ path_base <- lista_arquivos[11] # seleciona junho 2020
 #   # retira colunas inuteis
 #   dplyr::select(-1:-2)
 
-sisdepen2020 <- penitenciaR::carregar_base_sisdepen(path_base)
+sisdepen <- penitenciaR::carregar_base_sisdepen(path_base)
 
 # Dados estabelecimento ---------------------------------------------------
 
 # pegar as variáveis do bloco 1 e talvez 2
 
-base <- sisdepen2020 %>%
-  dplyr::select(estabelecimento_nm:cod_ibge,
-                dplyr::matches(match = "^[1]\\."))
+base <- sisdepen %>%
+  dplyr::select(nome_estabelecimento:dplyr::matches("1\\.1"),
+                dplyr::matches(match = "^[1]\\.")) %>%
+  dplyr::mutate(cod_ibge = if("cod_ibge" %in% names(.)) cod_ibge else NA_character_
+    )
 
 
-base_renomeada <- base %>%
+base %>%
+  renomeia_coluna("nome_estabelecimento_outro", "outras denomina..es") %>%
+  renomeia_coluna("endereco_estabelecimento", "endere.o") %>%
+  renomeia_coluna("nome_municipio", "munic.pio") %>%
+  renomeia_coluna("ambito_federativo", ".mbito") %>%
+  renomeia_coluna("bairro_estabelecimento", "bairro") %>%
+  renomeia_coluna("cep_estabelecimento", "cep") %>%
+  renomeia_coluna("situacao_estabelecimento", "situa..o do estabelecimento") %>%
   renomeia_coluna("data_inauguracao", "1.6 Data de inauguração") %>%
   renomeia_coluna("dest_original_genero", "1.1 Estabelecimento originalmente") %>%
   renomeia_coluna("dest_original_tipo", "1.2 Tipo de estabelecimento") %>%
@@ -73,18 +82,38 @@ base_renomeada <- base %>%
   renomeia_coluna("capacidade_interditada_fem", "1.3 .* desativadas .* Feminino") %>%
   # ver com cuidado essa: terceiriza_nenhum deveria ser não para todos os demais
   renomeia_coluna("terceiriza_nenhum", "1.5 .* Nenhum") %>%
-  renomeia_coluna("terceiriza_alimentacao", "1.5 .* Alimentação") %>%
+  renomeia_coluna("terceiriza_alimentacao", "1.5 .* Alimenta..o") %>%
+  renomeia_coluna("terceiriza_seguranca", "1.5 .* Seguran.a") %>%
   renomeia_coluna("terceiriza_limpeza", "1.5 .* Limpeza") %>%
   renomeia_coluna("terceiriza_lavanderia", "1.5 .* Lavanderia") %>%
-  renomeia_coluna("terceiriza_saude", "1.5 .* Saúde")  %>%
+  renomeia_coluna("terceiriza_saude", "1.5 .* Sa.de")  %>%
   renomeia_coluna("terceiriza_educacao", "1.5 .* educacional")  %>%
   renomeia_coluna("terceiriza_laboral", "1.5 .* laboral")  %>%
-  renomeia_coluna("terceiriza_ass_social", "1.5 .* Assistência social")  %>%
-  renomeia_coluna("terceiriza_ass_juridica", "1.5 .* Assistência jurídica") %>%
+  renomeia_coluna("terceiriza_ass_social", "1.5 .* Assist.ncia social")  %>%
+  renomeia_coluna("terceiriza_ass_juridica", "1.5 .* Assist.ncia jurídica") %>%
   renomeia_coluna("terceiriza_administrativo", "1.5 .* administrativos")  %>%
-  renomeia_coluna("terceiriza_quais_outros", "1.5 .* Outro")
+  renomeia_coluna("terceiriza_quais_outros", "1.5 .* Outro") %>%
+  renomeia_coluna("total_capacidade_provisorios", "1.3 .*presos provis.rios.*Total$") %>%
+  renomeia_coluna("total_capacidade_regimefechado", "1.3 .*regime fechado.*Total$") %>%
+  renomeia_coluna("total_capacidade_regimeaberto", "1.3 .*regime aberto.*Total$") %>%
+  renomeia_coluna("total_capacidade_regimesemiaberto", "1.3 .*regime semi?aberto.*Total$") %>%
+  renomeia_coluna("total_capacidade_regimedisciplinardiferenciado", "1.3 .*regime disciplinar.*Total$") %>%
+  renomeia_coluna("total_capacidade_medidasegurancainternacao", "1.3 .* medidas de seguran.a .*Total$") %>%
+  renomeia_coluna("total_capacidade_outrasvagas", "1.3 .*outro.*Total$") %>%
+  renomeia_coluna("total_capacidade_masculino", "1.3 .*capacidade do estabelecimento.*Masculino.*Total$") %>%
+  renomeia_coluna("total_capacidade_feminino", "1.3 .*capacidade do estabelecimento.*feminino.*Total$") %>%
+  renomeia_coluna("total_capacidade_vagasdesativadas", "1.3.*capacidade.*total.*vagas.*desativadas") %>%
+  names() %>%
+  stringr::str_c(collapse = "\n") %>%
+  cat()
+
 
 
 #TODO: comparar as colunas que sobraram pra conferir a confiabilidade
 #TODO: checar se rola fazer para os outros anos -> rola!
+
+base %>%
+  names() %>%
+  stringr::str_c(collapse = "\n") %>%
+  cat()
 
