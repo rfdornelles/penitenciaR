@@ -19,20 +19,22 @@ lista_arquivos <- fs::dir_info(path = "data-raw/sisdepen/")$path
 path_base <- lista_arquivos[11] # seleciona junho 2020
 
 # dá ruim: 7, 2, 1
-base_sisdepen <- readxl::read_excel(path_base)
+#base_sisdepen <- readxl::read_excel(path_base)
 
 # Vou selecionar como chaves:
 # `Nome do Estabelecimento`
 # `UF`
 # `Código IBGE`
 
-sisdepen2020 <- base_sisdepen %>%
-  dplyr::rename(estabelecimento_nm = `Nome do Estabelecimento`,
-                uf = UF,
-                cod_ibge = `Código IBGE`) %>%
-  dplyr::mutate(cod_ibge = as.character(cod_ibge)) %>%
-  # retira colunas inuteis
-  dplyr::select(-1:-2)
+# sisdepen2020 <- base_sisdepen %>%
+#   dplyr::rename(estabelecimento_nm = `Nome do Estabelecimento`,
+#                 uf = UF,
+#                 cod_ibge = `Código IBGE`) %>%
+#   dplyr::mutate(cod_ibge = as.character(cod_ibge)) %>%
+#   # retira colunas inuteis
+#   dplyr::select(-1:-2)
+
+sisdepen2020 <- penitenciaR::carregar_base_sisdepen(path_base)
 
 # Dados estabelecimento ---------------------------------------------------
 
@@ -41,8 +43,6 @@ sisdepen2020 <- base_sisdepen %>%
 base <- sisdepen2020 %>%
   dplyr::select(estabelecimento_nm:cod_ibge,
                 dplyr::matches(match = "^[1]\\."))
-
-names(base)
 
 
 base_renomeada <- base %>%
@@ -84,9 +84,6 @@ base_renomeada <- base %>%
   renomeia_coluna("terceiriza_administrativo", "1.5 .* administrativos")  %>%
   renomeia_coluna("terceiriza_quais_outros", "1.5 .* Outro")
 
-
-base_renomeada %>%
-  View()
 
 #TODO: comparar as colunas que sobraram pra conferir a confiabilidade
 #TODO: checar se rola fazer para os outros anos -> rola!
