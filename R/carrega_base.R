@@ -43,7 +43,7 @@ carregar_base_sisdepen <- function(path, padrao = "guess") {
                                   col_types = padrao)
 
   # garantir que as colunas chave sejam iguais em todas as bases
-  base_xlsx %>%
+  base_xlsx <- base_xlsx %>%
     dplyr::rename(
       nome_estabelecimento =
         tidyselect::matches("nome.*(unidade|estabelecimento)",
@@ -54,7 +54,18 @@ carregar_base_sisdepen <- function(path, padrao = "guess") {
     ) %>%
     # identificar a origem
     dplyr::mutate(id_origem_sisdepen = identificador) %>%
-    # retira colunas inuteis
-    dplyr::select(-1:-2)
+    dplyr::relocate(id_origem_sisdepen)
+
+  # checa se tem mais de uma sigla_uf
+
+  if (sum(stringr::str_detect(names(base_xlsx), "uf")) == 2) {
+
+    base_xlsx <- base_xlsx %>%
+      dplyr::rename(sigla_uf = sigla_uf1) %>%
+      dplyr::select(-sigla_uf2)
+
+  }
+
+  return(base_xlsx)
 
 }
