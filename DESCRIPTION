@@ -20,8 +20,12 @@ Imports:
     httr,
     magrittr,
     purrr,
+    readxl,
     rlang,
     stringr,
     tibble
 Suggests: 
+    tidyselect,
     xml2
+Depends: 
+    R (>= 2.10)
