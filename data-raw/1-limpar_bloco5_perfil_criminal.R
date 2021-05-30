@@ -60,7 +60,7 @@ base %>%
   ### código penal
   ## contra a pessoa
   renomeia_coluna("quantidade_incidencia_homicidio_simples", "homic.dio simples .*Total") %>%
-  renomeia_coluna("quantidade_incidencia_homicidio_culposo", "homic.dio culposo .*Total") %>%
+  renomeia_coluna("quantidade_incidencia_homicidio_culposo", "homic.*io culposo.*.121.*Total") %>%
   renomeia_coluna("quantidade_incidencia_homicidio_qualificado", "homic.dio qualificado .*Total") %>%
   renomeia_coluna("quantidade_incidencia_homicidio_simples", "homic.dio simples .*Total") %>%
   renomeia_coluna("quantidade_incidencia_aborto", "aborto .*Total") %>%
@@ -89,6 +89,7 @@ base %>%
   renomeia_coluna("quantidade_incidencia_atentadoviolentopudor", "violento ao pudor .*Total$") %>%
   renomeia_coluna("quantidade_incidencia_corrupcaomenores", "corrup..o de menores.*Total$") %>%
   renomeia_coluna("quantidade_incidencia_traficopessoasexploracaosexual_internacional", "tr.fico internacional.*pessoa .*Total$") %>%
+  renomeia_coluna("quantidade_incidencia_traficopessoasexploracaosexual_interno", "tr.fico interno.*pessoa .*Total$") %>%
   renomeia_coluna("quantidade_incidencia_outros_dignidadesexual", "outros .artigos 215.*Total$") %>%
   renomeia_coluna("quantidade_incidencia_quadrilha", "quadrilha.*288.*Total$") %>%
   # outros crimes do CP
@@ -113,7 +114,13 @@ base %>%
   renomeia_coluna("quantidade_incidencia_armas_comercioilegal", "com.rcio ilegal.*arma.*Total$") %>%
   renomeia_coluna("quantidade_incidencia_armas_traficointernacional", "tr.fico internacional de arma.*Total$") %>%
   # trânsito
-  renomeia_coluna("quantidade_incidencia_transito_homicidioculposo", "homic.dio culposo.*ve.culo.*Total$") %>%
+  renomeia_coluna("quantidade_incidencia_transito_homicidioculposo", "homic.dio.*ve.culo.*Total$") %>%
+  renomeia_coluna("quantidade_incidencia_transito_outros", "outros.*303.*Total$") %>%
+  # legislação específica
+  renomeia_coluna("quantidade_incidencia_estatutocriancaadolescente", "estatuto da crian.a.*Total$") %>%
+  renomeia_coluna("quantidade_incidencia_contrameioambiente", "contra o meio ambiente.*Total$") %>%
+  renomeia_coluna("quantidade_incidencia_genocidio", "genoc.dio.*Total$") %>%
+  renomeia_coluna("quantidade_incidencia_tortura", "tortura .*Total$") %>%
   names() %>%
   stringr::str_c(collapse = "\n") %>%
   cat()
