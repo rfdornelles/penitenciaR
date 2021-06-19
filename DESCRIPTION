@@ -1,6 +1,6 @@
 Package: penitenciaR
 Title: Base de dados e ferramentas para manuseio do SisDEPEN em formato tidy
-Version: 0.0.0.9000
+Version: 0.0.1
 Authors@R: 
     person(given = "Rodrigo",
            family = "Dornelles",
@@ -9,6 +9,7 @@ Authors@R:
            comment = c(ORCID = "0000-0003-3709-4760"))
 Description: Base de dados do SisDEPEN, oriunda do Ministério da Justiça e Segurança Pública com os dados de todas as unidades prisionais nacionais. O pacote vem acompanhado das bases de dados em formato tidy e ferramentas para seu manuseio
 License: CC0
+Language: pt-BR
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
@@ -24,7 +25,8 @@ Imports:
     rlang,
     stringr,
     tibble
-Suggests: 
+Suggests:
+    spelling, 
     tidyselect,
     xml2
 Depends: 

@@ -58,3 +58,30 @@ Os passos são:
 8.  Documentação dos dados em "R/dados_roubo_veiculos_ssp_2020_2021.R"
 
 9.  devtools::document()
+## O que é a base
+
+Survey
+Sisdepen
+Nesse formato desde 2014
+Periodicidade: primeiro era 1 ano, depois seis meses. 
+
+
+## Objetivo
+
+Transformar em base única, podendo comparar a mudança de alguns aspectos ao longo do tempo.
+
+Por exemplo: disponibilidade de vagas e lotação. Mudança de perfil na população ao longo do tempo. Ver o impacto do HC coletivo das mães. 
+
+## Funções
+
+-   para baixar
+-   para ler
+-   para renomear as colunas - estratégia escolhida foi renomear as colunas que eu queria e ignorar as demais 
+
+
+## Aspecto humano
+
+O sistema penitenciário é uma realidade desconhecida. Temos centenas de milhares de pessoas, presas, invisibilizadas porém concretas. Por razões raciais, sócio-econômicas e culturais, a situação é convenientemente escondida de nós.
+
+Aproveitando o ensejo do trabalho, tentei dar um pouco de concretude a essa realidade. Aparentemente, por meio das ciências exatas fica mais fácil lembrar às ciências humanas sua própria humanidade. 
+
