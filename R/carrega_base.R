@@ -38,7 +38,7 @@ carregar_base_sisdepen <- function(path, padrao = "guess") {
   # importar a base
   base_xlsx <- readxl::read_excel(path = path,
                                   # ler como <padrao> definido
-                                  # posso colcoar como "text" caso tenha
+                                  # posso colocoar como "text" caso tenha
                                   # problema de compatibilidade
                                   col_types = padrao)
 

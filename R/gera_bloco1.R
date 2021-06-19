@@ -5,7 +5,6 @@ renomeia_bloco_estabelecimento <- function(base) {
   dplyr::select(estabelecimento_nm:cod_ibge,
                 dplyr::matches(match = "^[1]\\."))
 
-
   # renomear as colunas
 
 

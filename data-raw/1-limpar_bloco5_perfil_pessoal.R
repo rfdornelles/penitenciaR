@@ -35,7 +35,7 @@ sisdepen2020 <- base_sisdepen %>%
 
 # Dados população ---------------------------------------------------------
 
-# pegar as variáveis do bloco 4
+# pegar as variáveis do bloco 5
 base <- sisdepen2020 %>%
   dplyr::select(estabelecimento_nm, uf, cod_ibge,
                 dplyr::matches(match = "^[5]\\.[^8] .*[^incidências]"))
