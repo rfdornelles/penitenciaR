@@ -9,7 +9,7 @@
 #' @param base Tibble da base
 #' @param nome Nome que será recebido
 #' @param coluna Expressão que identificará a coluna
-#' @param fixa Por padrão, "cod_ibge". Identifica após qual coluna a nova será
+#' @param fixa Por padrão, "sigla_uf". Identifica após qual coluna a nova será
 #' recolocada.
 #'
 #' @return Tibble renomeada
@@ -17,7 +17,7 @@
 #' @export
 #'
 
-renomeia_coluna <- function (base, nome, coluna, fixa = "cod_ibge") {
+renomeia_coluna <- function (base, nome, coluna, fixa = "sigla_uf") {
 
   base_resposta <- base %>%
     dplyr::rename({{nome}} := dplyr::matches(match = coluna,

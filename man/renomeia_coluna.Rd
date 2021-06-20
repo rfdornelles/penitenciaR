@@ -5,7 +5,7 @@
 \alias{renomeia_coluna}
 \title{Renomeia colunas}
 \usage{
-renomeia_coluna(base, nome, coluna, fixa = "cod_ibge")
+renomeia_coluna(base, nome, coluna, fixa = "sigla_uf")
 }
 \arguments{
 \item{base}{Tibble da base}
@@ -14,7 +14,7 @@ renomeia_coluna(base, nome, coluna, fixa = "cod_ibge")
 
 \item{coluna}{Expressão que identificará a coluna}
 
-\item{fixa}{Por padrão, "cod_ibge". Identifica após qual coluna a nova será
+\item{fixa}{Por padrão, "sigla_uf". Identifica após qual coluna a nova será
 recolocada.}
 }
 \value{
