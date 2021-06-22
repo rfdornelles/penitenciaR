@@ -1,22 +1,22 @@
-
 # Pacotes -----------------------------------------------------------------
 library(magrittr)
 library(penitenciaR)
 
-
-
 # Carregar a base ---------------------------------------------------------
 lista_arquivos <- fs::dir_info(path = "data-raw/sisdepen/")$path
 
-path_base <- lista_arquivos[1] # seleciona junho 2020
+path_base <- lista_arquivos[11] # seleciona junho 2020
 
+arrumar_bloco_sisdepen <- function (path_base, ...) {
 
 # Colunas chave -----------------------------------------------------------
 
-base <- penitenciaR::carregar_base_sisdepen(path_base)
+base <- penitenciaR::carregar_base_sisdepen(path_base, ...)
 
 base <- base %>%
   renomeia_coluna("cod_ibge", "ibge", FALSE) %>%
+  # verificar se a coluna do código ibge existe e se não criar uma
+  # ainda que vazia
   dplyr::mutate(
     cod_ibge = if ("cod_ibge" %in% names(.)) {
       cod_ibge
@@ -157,7 +157,7 @@ base_bloco5_a <- base %>%
                 dplyr::matches(match = "5"))
 
 base_bloco5_a <- base_bloco5_a %>%
-  renomeia_coluna("possui_registro_idade", "5.1.* tem condi..es de obter") %>%
+  renomeia_coluna("possui_registro_idade", "5.1 .*tem condições de obter") %>%
   renomeia_coluna("possui_registro_raca", "5.2.* tem condi..es de obter") %>%
   renomeia_coluna("possui_registro_procedencia", "5.3.* tem condi..es de obter") %>%
   renomeia_coluna("possui_registro_estadocivil", "5.4.* tem condi..es de obter") %>%
@@ -239,7 +239,6 @@ base_bloco5_a <- base_bloco5_a %>%
 # derrubar as colunas não usadas
 base_bloco5_a <- base_bloco5_a %>%
   dplyr::select(-dplyr::matches("[A-Z]", ignore.case = FALSE))
-
 # Bloco 5-B - perfil criminal ---------------------------------------------
 
 base_bloco5_b <- base %>%
@@ -324,8 +323,20 @@ base_bloco5_b <- base_bloco5_b %>%
 base_bloco5_b <- base_bloco5_b %>%
   dplyr::select(-dplyr::matches("[A-Z]", ignore.case = FALSE))
 
-# Corrigir classes --------------------------------------------------------
 
+# Juntar as bases ---------------------------------------------------------
+
+sisdepen2020_selecionado <- base_bloco1 %>%
+  dplyr::left_join(base_bloco4) %>%
+  dplyr::left_join(base_bloco5_a) %>%
+  dplyr::left_join(base_bloco5_b)
+
+return(sisdepen2020_selecionado)
+ # Corrigir classes --------------------------------------------------------
+
+}
+
+# jun-2016, 2015 e 2014
 
 # Ajustes de compatibilidade ----------------------------------------------
 

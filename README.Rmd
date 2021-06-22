@@ -65,12 +65,23 @@ Sisdepen
 Nesse formato desde 2014
 Periodicidade: primeiro era 1 ano, depois seis meses. 
 
+São mil e tantas colunas
+
+## Por que foi escolhida?
+
+Parece tidy mas não é. Não era possível simplesmente empilhá-las pois as colunas são diferentes. Difícil de manusear.
 
 ## Objetivo
 
 Transformar em base única, podendo comparar a mudança de alguns aspectos ao longo do tempo.
 
 Por exemplo: disponibilidade de vagas e lotação. Mudança de perfil na população ao longo do tempo. Ver o impacto do HC coletivo das mães. 
+
+https://basedosdados.github.io/mais/style_data/#formatos-de-valores
+
+## Estratégia
+
+
 
 ## Funções
 
