@@ -77,6 +77,8 @@ Transformar em base única, podendo comparar a mudança de alguns aspectos ao lo
 
 Por exemplo: disponibilidade de vagas e lotação. Mudança de perfil na população ao longo do tempo. Ver o impacto do HC coletivo das mães. 
 
+https://basedosdados.github.io/mais/style_data/#formatos-de-valores
+
 ## Estratégia
 
 

@@ -5,13 +5,13 @@ library(penitenciaR)
 # Carregar a base ---------------------------------------------------------
 lista_arquivos <- fs::dir_info(path = "data-raw/sisdepen/")$path
 
-path_base <- lista_arquivos[05] # seleciona junho 2020
+path_base <- lista_arquivos[11] # seleciona junho 2020
 
-arrumar_bloco_sisdepen <- function (path_base) {
+arrumar_bloco_sisdepen <- function (path_base, ...) {
 
 # Colunas chave -----------------------------------------------------------
 
-base <- penitenciaR::carregar_base_sisdepen(path_base)
+base <- penitenciaR::carregar_base_sisdepen(path_base, ...)
 
 base <- base %>%
   renomeia_coluna("cod_ibge", "ibge", FALSE) %>%
@@ -331,10 +331,12 @@ sisdepen2020_selecionado <- base_bloco1 %>%
   dplyr::left_join(base_bloco5_a) %>%
   dplyr::left_join(base_bloco5_b)
 
-sisdepen2020_selecionado
+return(sisdepen2020_selecionado)
  # Corrigir classes --------------------------------------------------------
 
 }
+
+# jun-2016, 2015 e 2014
 
 # Ajustes de compatibilidade ----------------------------------------------
 

@@ -53,8 +53,11 @@ carregar_base_sisdepen <- function(path, padrao = "guess") {
                              ignore.case = TRUE)
     ) %>%
     # identificar a origem
-    dplyr::mutate(id_origem_sisdepen = identificador) %>%
-    dplyr::relocate(id_origem_sisdepen)
+    dplyr::mutate(
+      id_origem_sisdepen = identificador,
+      id_ano_sisdepen = ano_base,
+      id_mes_sisdepen = rodada) %>%
+    dplyr::relocate(id_origem_sisdepen:id_mes_sisdepen)
 
   # checa se tem mais de uma sigla_uf
 
