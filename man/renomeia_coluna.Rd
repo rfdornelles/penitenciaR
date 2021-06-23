@@ -5,7 +5,7 @@
 \alias{renomeia_coluna}
 \title{Renomeia colunas}
 \usage{
-renomeia_coluna(base, nome, coluna, fixa = "sigla_uf")
+renomeia_coluna(base, nome, coluna, fixa = FALSE)
 }
 \arguments{
 \item{base}{Tibble da base}

@@ -69,6 +69,20 @@ carregar_base_sisdepen <- function(path, padrao = "guess") {
 
   }
 
+  # garantir que tenha coluna cod_ibge
+
+  base_xlsx <- base_xlsx %>%
+    renomeia_coluna("cod_ibge", "ibge", FALSE) %>%
+    # verificar se a coluna do código ibge existe e se não criar uma
+    # ainda que vazia
+    dplyr::mutate(
+      cod_ibge = if ("cod_ibge" %in% names(.)) {
+        cod_ibge
+      } else {
+        NA_character_
+      })
+
+
   return(base_xlsx)
 
 }

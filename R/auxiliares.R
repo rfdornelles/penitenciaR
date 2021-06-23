@@ -17,7 +17,7 @@
 #' @export
 #'
 
-renomeia_coluna <- function (base, nome, coluna, fixa = "sigla_uf") {
+renomeia_coluna <- function (base, nome, coluna, fixa = FALSE) {
 
   base_resposta <- base %>%
     dplyr::rename({{nome}} := dplyr::matches(match = coluna,
@@ -33,39 +33,6 @@ renomeia_coluna <- function (base, nome, coluna, fixa = "sigla_uf") {
 
 }
 
-
-# checa_consistência ------------------------------------------------------
-
-
-#' Chaca consistência
-#'
-#' @description
-#'
-#' Testa a consistência das colunas: vai pegar as que não tem total, somar
-#' e comparar com a que tem.
-#'
-#' @param base Qual a base
-#' @param nome_coluna Nome da coluna "
-#'
-#' @return
-#' @export
-#'
-#'
-
-checa_consistencia_numero <- function(base, nome_coluna) {
-
-  base %>%
-    dplyr::select(
-      dplyr::contains(nome_coluna)) %>%
-    dplyr::mutate(
-      sem_total = rowSums(
-        dplyr::across(
-          dplyr::matches(match = "[^(Total)]")
-        ), na.rm = TRUE),
-      total = rowSums(dplyr::across(dplyr::contains("Total")), na.rm = TRUE),
-      consistente = sem_total == total
-    )
-}
 
 # ler_colunas -------------------------------------------------------------
 
@@ -192,3 +159,81 @@ ToTitleCasePT <- function(string) {
       )
     )
 }
+
+
+# Uteis na limpeza --------------------------------------------------------
+
+#' Transformar números em sim/não
+#'
+#' @param valor Vetor a ser transformado
+#' @param transforma_na Se TRUE vai transformar NA em Não
+#' @param logico Se TRUE vai transformar Sim em TRUE e Não em NA
+#'
+#' @return Vetor
+#' @export
+#'
+#' @encoding UTF-8
+numero_para_sim_nao <- function(valor,
+                                transforma_na = FALSE,
+                                logico = FALSE) {
+
+# padroniza colocando como character
+  #valor <- as.character(valor)
+
+# faz as substituições
+  valor_arrumado <- dplyr::case_when(
+    valor == 0 ~ "Não",
+    valor == "" ~ "Não",
+    valor == 1 ~ "Sim",
+    valor == "Sim" ~ "Sim",
+    # qualquer outro valor será NA
+    # isso é bom para eliminar os valores fora do padrão
+    TRUE ~ NA_character_
+  )
+
+  # se for o caso, transforma NA em Não
+  if (transforma_na == TRUE) {
+    valor_arrumado <- dplyr::if_else(is.na(valor_arrumado),
+                                     true = "Não",
+                                     false = valor_arrumado)
+  }
+
+  # se for o caso, transforma Sim em TRUE e NÃO em FALSE
+  if (logico == TRUE) {
+
+    valor_arrumado <- dplyr::case_when(
+      valor_arrumado == "Sim" ~ TRUE,
+      valor_arrumado == "Não" ~ FALSE,
+      TRUE ~ NA
+    )
+
+  }
+
+  return(valor_arrumado)
+}
+
+#' Conta os valores das colunas
+#'
+#'
+#' @param base A base a ser utilizada
+#' @param coluna A expressão a ser usada para selecionar a coluna.
+#'
+#' @return Lista
+#' @export
+#'
+#' @encoding UTF-8
+conta_valores <- function(base, coluna = "*") {
+
+  base %>%
+    dplyr::select(
+      # seleciona as colunas com a regex do parâmetro
+      dplyr::matches(coluna)) %>%
+    names() %>% # pega os nomes das colunas
+    purrr::map(.f = ~{
+      base %>%
+        janitor::tabyl(.data[[.x]]) # aplica o count pra cada coluna
+    })
+
+
+}
+
