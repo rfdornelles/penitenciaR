@@ -5,7 +5,6 @@ base_estabelecimento <- carrega_e_aplica(arruma_bloco_estabelecimento)
 
 
 # Identificar problemas ---------------------------------------------------
-
 # ver colunas que estão duplicadas
 # endereço_estabelecimento1 - são IPs
 # endereço_estabelecimento2 - emails
@@ -149,9 +148,6 @@ base_estabelecimento <- base_estabelecimento  %>%
 # terceirização -----------------------------------------------------------
 
 ### tercerizações
-base_estabelecimento %>%
-  penitenciaR::conta_valores("terceiriza")
-
 # terceiriza_nenhum
 base_estabelecimento <- base_estabelecimento %>%
   dplyr::mutate(
@@ -316,9 +312,6 @@ base_estabelecimento <- base_estabelecimento %>%
   ) %>% # remover a coluna
   dplyr::select(-cep_ref)
 
-base_estabelecimento %>%
-  dplyr::filter(is.na(cep_estabelecimento))
-
 # remover a lista
 rm(lista_ceps)
 
@@ -326,9 +319,20 @@ rm(lista_ceps)
 # Acrescentar dados georeferenciados --------------------------------------
 # baixei os dados de lat e long em relação ao CEP
 
+base_estabelecimento <- base_estabelecimento %>%
+  dplyr::left_join(base_cep, by = c("cep_estabelecimento" = "cep"))
 
 
+# Formato numérico --------------------------------------------------------
+
+base_estabelecimento <- base_estabelecimento %>%
+  dplyr::mutate(
+    dplyr::across(
+      .cols = dplyr::matches("quantidade|capacidade"),
+      .fns = as.numeric
+    )
+  )
 
 # Exportar ----------------------------------------------------------------
 
-
+usethis::use_data(base_estabelecimento, overwrite = TRUE, version = 3)

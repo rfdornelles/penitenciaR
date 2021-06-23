@@ -82,6 +82,16 @@ carregar_base_sisdepen <- function(path, padrao = "guess") {
         NA_character_
       })
 
+  # Padronizar os nomes: remover assentos, caracteres e colocar em UPPER
+
+  base_xlsx <- base_xlsx %>%
+    dplyr::mutate(
+      nome_estabelecimento = stringr::str_trim(nome_estabelecimento),
+      nome_estabelecimento = abjutils::rm_accent(nome_estabelecimento),
+      nome_estabelecimento = stringr::str_remove(nome_estabelecimento,
+                                                     "[[:punct:]]"),
+      nome_estabelecimento = stringr::str_to_upper(nome_estabelecimento)
+    )
 
   return(base_xlsx)
 
