@@ -237,3 +237,26 @@ conta_valores <- function(base, coluna = "*") {
 
 }
 
+# Wrap de stringr ---------------------------------------------------------
+
+#' Wrap de stringr
+#'
+#' Atalho para stringr::str_detect(), considerando o ignore.case = TRUE
+#'
+#' @param string Variável a ser analisada
+#' @param pattern Regex
+#' @param ignore_case TRUE por padrão.
+#' @param ... Outros valores para serem passados no stringr::regex
+#'
+#' @return Logical
+#' @export
+#'
+checa <- function(string, pattern, ignore_case = TRUE, ...) {
+
+  regex <- stringr::regex(pattern = pattern, ignore_case = ignore_case,
+                          ...)
+
+  stringr::str_detect(string, regex)
+
+}
+
