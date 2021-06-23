@@ -253,4 +253,82 @@ base_estabelecimento <- base_estabelecimento %>%
 
 
 # data --------------------------------------------------------------------
+# os dados de 2020 não tem NA, vamos usá-los quado os demais não forem
+# válidos
+
+lista_datas_inauguracao <- base_estabelecimento %>%
+  dplyr::filter(id_ano_sisdepen == "2020") %>%
+  dplyr::mutate(
+    data_inauguracao_ref = dplyr::if_else(data_inauguracao == "01/01/0001",
+                                      NA_character_,
+                                      data_inauguracao),
+    data_inauguracao_ref = lubridate::dmy(data_inauguracao_ref)
+  ) %>%
+  dplyr::select(sigla_uf, nome_estabelecimento, data_inauguracao_ref)
+
+
+base_estabelecimento <- base_estabelecimento %>%
+  # join com a lista de referência
+  dplyr::left_join(lista_datas_inauguracao) %>%
+  dplyr::mutate(
+    # substituir valores inválidos por NA
+    data_inauguracao = dplyr::if_else(
+      data_inauguracao == "01/01/0001",
+      NA_character_,
+      data_inauguracao),
+    # tentar converter
+    data_inauguracao = lubridate::dmy(data_inauguracao),
+    # se não rolar, pegar da lista de referência (se existir)
+    data_inauguracao = dplyr::if_else(
+      is.na(data_inauguracao),
+      data_inauguracao_ref,
+      data_inauguracao
+    )
+  ) %>%
+  # retirar a lista de referência
+  dplyr::select(-data_inauguracao_ref)
+
+# remover a lista pra não confundir
+rm(lista_datas_inauguracao)
+# CEP ---------------------------------------------------------------------
+# alguns casos de CEP inválido
+# verifiquei e vi que os dados de 2020 são válidos
+# vou usar a mesma estratégia que das datas
+
+lista_ceps <- base_estabelecimento %>%
+  dplyr::filter(id_origem_sisdepen == "2020-junho",
+                !is.na(cep_estabelecimento)) %>%
+  dplyr::select(sigla_uf, nome_estabelecimento,
+                cep_ref = cep_estabelecimento)
+
+# fazer o join e escolher qual usar
+base_estabelecimento <- base_estabelecimento %>%
+  dplyr::left_join(lista_ceps) %>%
+  dplyr::mutate(
+    # remover o hífen se houver
+    cep_estabelecimento = stringr::str_remove_all(cep_estabelecimento, "-"),
+    cep_estabelecimento = dplyr::if_else(
+      # se tiver 8 dígitos usar o que está, se não usar o da tabela
+      stringr::str_count(cep_estabelecimento) == 8,
+      cep_estabelecimento,
+      cep_ref
+    )
+  ) %>% # remover a coluna
+  dplyr::select(-cep_ref)
+
+base_estabelecimento %>%
+  dplyr::filter(is.na(cep_estabelecimento))
+
+# remover a lista
+rm(lista_ceps)
+
+
+# Acrescentar dados georeferenciados --------------------------------------
+# baixei os dados de lat e long em relação ao CEP
+
+
+
+
+# Exportar ----------------------------------------------------------------
+
 
