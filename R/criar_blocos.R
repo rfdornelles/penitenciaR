@@ -76,7 +76,7 @@ base_bloco1 <- base_bloco1 %>%
   # renomeia_coluna("tipo_capacidade_outros", "1.3.? Capacidade .* (Qual\\(is\\)\\?)$") %>%
   renomeia_coluna("capacidade_outro_mas", "1.3.? Capacidade .* Outro.* \\| Masculino") %>%
   renomeia_coluna("capacidade_outro_fem", "1.3.? Capacidade .* Outro.* \\| Feminino") %>%
-  renomeia_coluna("quantidade_celas_interdidatas", "1.3.*n.o aptas$") %>%
+  renomeia_coluna("quantidade_celas_interditadas", "1.3.*n.o aptas$") %>%
   renomeia_coluna("capacidade_interditada_mas", "1.3.* desativadas .* Masculino") %>%
   renomeia_coluna("capacidade_interditada_fem", "1.3.* desativadas.*Feminino") %>%
   # ver com cuidado essa: terceiriza_nenhum deveria ser não para todos os demais
