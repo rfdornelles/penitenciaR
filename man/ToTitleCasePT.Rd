@@ -17,13 +17,12 @@ vector of characters with the same dimension of \code{string}
 }
 \description{
 By José Jesus Filho
-}
-\details{
 In written Portuguese, when converting to title case, it is not usual
 to keep in title case some words, like prepositions, conjunctions,
 articles and some kinds of pronouns.  This functions locates those
 cases and converts them to lower case.
-
+}
+\details{
 The current list of words converted to lower case is:
 \itemize{
 \item articles

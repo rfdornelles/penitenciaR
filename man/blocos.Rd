@@ -21,11 +21,25 @@ arruma_bloco_perfilpessoal(base)
 arruma_bloco_perfilcriminal(base)
 }
 \arguments{
-\item{base}{}
+\item{funcao}{Uma das funções arruma_bloco_ a ser indicada}
+
+\item{lista}{Lista de arquivos a serem abertos. Se não for informada,
+irá buscar tudo que estiver na pasta /data-raw/sisdepen}
+
+\item{base}{Nas funções arruma_bloco_ recebe a base do DEPEN a ser
+"fatiada"}
 }
 \value{
-
+Tibble
 }
 \description{
-Criar bases a partir dos blocos de perguntas do SISDEPEN
+As milhares de colunas do SISDEPEN foram divididas nesse pacote em
+"bloco", de acordo com a pertinência temática de cada uma delas.
+
+Para cada bloco foi gerada uma função que seleciona as colunas
+pertinentes a ela.
+
+A função carrega_e_aplica() recebe uma das funções e a lista de
+arquivos .xlsx já baixados para carregar e aplicar a cada um deles,
+formando ao final uma base temática.
 }

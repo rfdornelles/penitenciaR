@@ -28,8 +28,10 @@ Imports:
     stringr,
     tibble
 Suggests:
-    spelling, 
+    abjutils,
+    janitor,
+    spelling,
     tidyselect,
     xml2
 Depends: 
-    R (>= 2.10)
+    R (>= 3.5.0)

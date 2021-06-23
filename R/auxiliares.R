@@ -1,3 +1,8 @@
+
+# Funções auxiliares ------------------------------------------------------
+# Para apoio no processo de limpeza e detecção de inconsistências no
+#sisdepen
+
 #' Renomeia colunas
 #'
 #' @description
@@ -42,9 +47,9 @@ renomeia_coluna <- function (base, nome, coluna, fixa = "cod_ibge") {
 #' a função irá carregar e imprimir em formato amigável e colocar na
 #' área de transferência para que seja colada com CNTR+V.
 #'
-#' Útil para colocar as colunas no regex101.cim
+#' Útil para colocar as colunas no regex101.com
 #'
-#' @param base
+#' @param base A base de dados que quero ver
 #'
 #' @return Vetor de character contendo as colunas da base.
 #' @export
@@ -73,7 +78,6 @@ ler_colunas <- function(base) {
 #' Convertion to title case with lower case for some classes of words.
 #'
 #' By José Jesus Filho
-#'
 #' In written Portuguese, when converting to title case, it is not usual
 #' to keep in title case some words, like prepositions, conjunctions,
 #' articles and some kinds of pronouns.  This functions locates those
@@ -159,7 +163,6 @@ ToTitleCasePT <- function(string) {
       )
     )
 }
-
 
 # Uteis na limpeza --------------------------------------------------------
 

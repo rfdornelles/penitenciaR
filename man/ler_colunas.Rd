@@ -8,7 +8,7 @@
 ler_colunas(base)
 }
 \arguments{
-\item{base}{}
+\item{base}{A base de dados que quero ver}
 }
 \value{
 Vetor de character contendo as colunas da base.
@@ -18,5 +18,5 @@ Em caso de necessitar manipular bases com muitas colunas,
 a função irá carregar e imprimir em formato amigável e colocar na
 área de transferência para que seja colada com CNTR+V.
 
-Útil para colocar as colunas no regex101.cim
+Útil para colocar as colunas no regex101.com
 }
