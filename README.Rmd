@@ -89,10 +89,18 @@ https://basedosdados.github.io/mais/style_data/#formatos-de-valores
 -   para ler
 -   para renomear as colunas - estratégia escolhida foi renomear as colunas que eu queria e ignorar as demais 
 
+## Conceitos penitenciários
+Capacidade - não existe um critério claro
+Regime de cumprimento de pena
+Provisório/definitivo
+LEP
+
+
 
 ## Aspecto humano
 
 O sistema penitenciário é uma realidade desconhecida. Temos centenas de milhares de pessoas, presas, invisibilizadas porém concretas. Por razões raciais, sócio-econômicas e culturais, a situação é convenientemente escondida de nós.
 
 Aproveitando o ensejo do trabalho, tentei dar um pouco de concretude a essa realidade. Aparentemente, por meio das ciências exatas fica mais fácil lembrar às ciências humanas sua própria humanidade. 
+
 
