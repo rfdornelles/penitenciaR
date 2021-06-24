@@ -163,43 +163,177 @@
 #' @encoding UTF-8
 "base_estabelecimento"
 
-#' Base estabelecimento....
+#' Variáveis relativas à população prisional
 #'
-#' A base foi baixada usando a API do CEP Aberto, mais especificamente
-#' a função [cepR::busca_cep()].
+#' @description
+#' Seleção das principais variáveis relativas à população prisional contidas no
+#' item 4 do formulário do SISDEPEN. Em geral, dizem respeito às caractarísticas
+#' população custodiada na unidade.
 #'
 #' @format :
 #' \describe{
-#'   \item{cep}{CEP da unidade prisional}
-#'   \item{lat}{latitude}
-#'   \item{long}{longitude}
+#' \item{id_origem_sisdepen}{ID de qual edição do SISDEPEN a base
+#'   corresponde}
+#' \item{id_ano_sisdepen}{Ano em que as informações foram enviadas}
+#' \item{id_mes_sisdepen}{Qual o período se refere, em geral sendo junho,
+#'   dezembro ou "único", nos anos em que era enviado apenas uma vez}
+#' \item{nome_estabelecimento, sigla_uf e cod_ibge}{Nome do estabelecimento prisional,
+#' UF de onde está o estabelecimento e o código IBGE (7 dígitos) do município onde
+#' está localizado}
+#' \item{quantidade_(situação)_(regime)_(origem)_(gênero)}{Variáveis indicando a quantidade
+#' de pessoas custodiadas no momento do envio das respostas ao SISDEPEN. Não se confunde
+#' com a quantidade de "vagas", já que pode ser menor ou - infelizmente, na maior parte
+#' dos casos - muito maior do que o esperado.
+#'
+#' Para fins do SISDEPEN a pessoa deixa de ser considerada provisória quando há sentença,
+#' independente de ainda cabe recurso (ou seja, mesmo que não haja o trânsito em julgado).
+#' Caso a pessoa esteja condenada mas também possua prisão provisória por outro processo ela
+#' será considerada, para fins do SISDEPEN, condenada.
+#'
+#' Essas variáveis estão em uma estrutura divididos pela situação processual, regime,
+#' origem da prisão (qual Justiça) e gênero:
+#'
+#' *Situação processual*
+#' Pode ser:
+#' 1. _presoprovisorio_ Indicando serem provisórios (sem sentença condenatória)
+#' 2. _sentenca_ Indicando serem já sentenciados
+#' 3. _medseg_ Medida de segurança
+#'
+#' *Regime de pena*
+#' 1. Se _sentenca_ pode variar entre *ra* (regime aberto), *rsa* (regime semiaberto) ou
+#' *rf* (regime fechado)
+#' 2. Se _medseg_ pode ser *ambulatorial* (tratamento ambulatorial) ou *internacao*
+#'
+#' *Justiça de origem*
+#' 1. _jusestadual_ : justiça estadual
+#' 2. _jusfederal_ : justiça federal
+#' 3. _outrajus_ : outras justiças como Trabalhista, Eleitoral ou cível.
+#'
 #' }
-#' @source SISDEPEN
+#' }
+#' @source https://www.gov.br/depen/pt-br/sisdepen/mais-informacoes/bases-de-dados
+#' @encoding UTF-8
 "base_populacao"
 
-#' Base estabelecimento....
+#' Variáveis relativas ao perfil criminal
 #'
-#' A base foi baixada usando a API do CEP Aberto, mais especificamente
-#' a função [cepR::busca_cep()].
+#' @description
+#' Seleção das principais variáveis relativas à população prisional contidas na
+#' segunda parte do item 5 do formulário do SISDEPEN. Em geral, dizem respeito
+#' ao crime pelo qual a pessoa está presa (seja em caráter provisório ou não).
+#'
+#' A incidência penal é considerada aquela classificada no auto de prisão em flagrante,
+#' instauração de inquérito ou denúncia caso seja um preso provisório. No caso de
+#' sentenciado, considera-se a capitulação dada na sentença ou acórdão.
+#'
+#' _*ATENÇÃO*_: O SISDEPEN determina que as incidências serão registradas de *forma cumulativa*: se uma pessoa foi condenada
+#' por homicídio simples e por roubo simples, deve ser lançado um registro em
+#' homicídio simples e outro registro em roubo simples, da mesma forma, se a pessoa
+#' foi condenada por roubo simples e aguarda julgamento por tráfico de drogas, deve
+#' ser lançado registro nos dois tipos penais.
+#'
 #'
 #' @format :
 #' \describe{
-#'   \item{cep}{CEP da unidade prisional}
-#'   \item{lat}{latitude}
-#'   \item{long}{longitude}
+#' \item{id_origem_sisdepen}{ID de qual edição do SISDEPEN a base
+#'   corresponde}
+#' \item{id_ano_sisdepen}{Ano em que as informações foram enviadas}
+#' \item{id_mes_sisdepen}{Qual o período se refere, em geral sendo junho,
+#'   dezembro ou "único", nos anos em que era enviado apenas uma vez}
+#' \item{nome_estabelecimento, sigla_uf e cod_ibge}{Nome do estabelecimento prisional,
+#' UF de onde está o estabelecimento e o código IBGE (7 dígitos) do município onde
+#' está localizado}
+#' \item{existe_registro_incidenciapenal}{Informa se o estabelecimento tem alguma
+#' forma de controlar o registro sobre a incidência penal}
+#' \item{metodologia_registro_incidenciapenal}{Qual a metodologia utilizada para o
+#' registro da incidência penal. Permite saber o grau de atualização dos dados e,
+#' com isso, mensurar o quanto é possível confiar na informação.}
+#' \item{quantidade_com_informacao_incidencia e quantidade_sem_informacao_incidencia}{Quantas
+#' pessoas estão ou não com essa informação. Junto à variável de metodologia permite aferir
+#' o quão atualizados estão os dados}
+#' \item{quantidade_incidencia_(crime)(modalidade)}{Variáveis indicando a quantidade
+#' de incidências penais para cada um dos crimes. Como dito acima, uma pessoa pode possuir
+#' mais de uma incidência penal.
+#'
+#' Foram divididos de acordo com a categoria do crime, podendo ser divididos em modalidade
+#' quando for o caso.
+#'
+#' _Crimes contra a pessoa_
+#' - *homicídio*: podendo ser, _culposo, _simples ou _qualificado
+#' - *aborto*
+#' - *lesaocorporal*
+#' - *violenciadomestica*
+#' - *sequestrocarcereprivado* previsto no art. 148 do Código Penal
+#' - *outros_contrapessoa* outros crimes contra a pessoa não listados acima
+#'
+#' _Crimes contra o patrimônio_
+#' - *furto* : podendo ser _simples ou _qualificado
+#' - *roubo* : podendo ser _simples ou _qualificado
+#' - *latrocinio* : também conhecido como roubo seguido de morte
+#' - *extorsao* : art. 158 do CP
+#' _ *extorsaomedsequestro* : extorsão mediante sequestro (art. 159 do CP)
+#' - *apropindebita* : apropriação indébita (art. 168)
+#' - *apropindebita_previdenciaria* : apropriação indébita previdenciária (art. 168-A)
+#' - *estelionato*
+#' - *receptacao* receptação, podendo ser também _qualificada
+#' - *outros_contrapatrimonio*
+#'
+#' _Contra a dignidade sexual_
+#' - *estupro*
+#' _ *estupro_vulneravel*
+#' - *atentadoviolentopudor*
+#' - *corrupcaomenores*
+#' - *traficopessoasexploracaosexua* podendo ser _interno ou _internacional
+#' - *outros_dignidadesexual*
+#'
+#' _Contra a fé pública e contra administração pública_
+#'
+#' _Drogas_
+#'
+#' _Armas_
+#'
+#' _Outros crimes de legislação específica_
+#'
+#'
 #' }
-#' @source SISDEPEN
+#' }
+#' @source https://www.gov.br/depen/pt-br/sisdepen/mais-informacoes/bases-de-dados
+#' @encoding UTF-8
 "base_perfilcriminal"
 
-#' Base estabelecimento....
+#' Variáveis relativas à população prisional
 #'
-#' A base foi baixada usando a API do CEP Aberto, mais especificamente
-#' a função [cepR::busca_cep()].
+#' @description
+#' Seleção das principais variáveis relativas à população prisional contidas no
+#' item 4 do formulário do SISDEPEN. Em geral, dizem respeito às caractarísticas
+#' população custodiada na unidade.
 #'
 #' @format :
 #' \describe{
-#'   \item{cep}{CEP da unidade prisional}
-#'   \item{lat}{latitude}
-#'   \item{long}{longitude}
+#' \item{id_origem_sisdepen}{ID de qual edição do SISDEPEN a base
+#'   corresponde}
+#' \item{id_ano_sisdepen}{Ano em que as informações foram enviadas}
+#' \item{id_mes_sisdepen}{Qual o período se refere, em geral sendo junho,
+#'   dezembro ou "único", nos anos em que era enviado apenas uma vez}
+#' \item{nome_estabelecimento, sigla_uf e cod_ibge}{Nome do estabelecimento prisional,
+#' UF de onde está o estabelecimento e o código IBGE (7 dígitos) do município onde
+#' está localizado}
+#' \item{quantidade_(situação)_(regime)_(origem)_(gênero)}{Variáveis indicando a quantidade
+#' de pessoas custodiadas no momento do envio das respostas ao SISDEPEN. Não se confunde
+#' com a quantidade de "vagas", já que pode ser menor ou - infelizmente, na maior parte
+#' dos casos - muito maior do que o esperado.
+#'
+#' Para fins do SISDEPEN a pessoa deixa de ser considerada provisória quando há sentença,
+#' independente de ainda cabe recurso (ou seja, mesmo que não haja o trânsito em julgado).
+#' Caso a pessoa esteja condenada mas também possua prisão provisória por outro processo ela
+#' será considerada, para fins do SISDEPEN, condenada.
+#'
+#' Essas variáveis estão em uma estrutura divididos pela situação processual, regime,
+#' origem da prisão (qual Justiça) e gênero:
+#'
+
 #' }
+#' }
+#' @source https://www.gov.br/depen/pt-br/sisdepen/mais-informacoes/bases-de-dados
+#' @encoding UTF-8
 "base_perfilpessoal"
