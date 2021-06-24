@@ -139,7 +139,8 @@ arruma_bloco_populacao <- function(base) {
   # sobre população carcerária
 
   base_bloco4 <- base %>%
-    dplyr::select(id_origem_sisdepen, nome_estabelecimento, sigla_uf, cod_ibge,
+    dplyr::select(id_origem_sisdepen, id_ano_sisdepen, id_mes_sisdepen,
+                  nome_estabelecimento, sigla_uf, cod_ibge,
                   dplyr::matches(match = "4"))
 
   base_bloco4 <- base_bloco4 %>%
@@ -208,7 +209,8 @@ arruma_bloco_populacao <- function(base) {
 arruma_bloco_perfilpessoal <- function(base) {
 
   base_bloco5_a <- base %>%
-    dplyr::select(id_origem_sisdepen, nome_estabelecimento, sigla_uf, cod_ibge,
+    dplyr::select(id_origem_sisdepen, id_ano_sisdepen, id_mes_sisdepen,
+                  nome_estabelecimento, sigla_uf, cod_ibge,
                   dplyr::matches(match = "5"))
 
   base_bloco5_a <- base_bloco5_a %>%
@@ -309,7 +311,8 @@ arruma_bloco_perfilpessoal <- function(base) {
 arruma_bloco_perfilcriminal <- function(base) {
 
   base_bloco5_b <- base %>%
-    dplyr::select(id_origem_sisdepen, nome_estabelecimento, sigla_uf, cod_ibge,
+    dplyr::select(id_origem_sisdepen, id_ano_sisdepen, id_mes_sisdepen,
+                  nome_estabelecimento, sigla_uf, cod_ibge,
                   dplyr::matches(match = "5"))
 
   base_bloco5_b <- base_bloco5_b %>%
@@ -381,7 +384,6 @@ arruma_bloco_perfilcriminal <- function(base) {
     renomeia_coluna("quantidade_incidencia_contrameioambiente", "contra o meio ambiente.*Total$") %>%
     renomeia_coluna("quantidade_incidencia_genocidio", "genoc.dio.*Total$") %>%
     renomeia_coluna("quantidade_incidencia_tortura", "tortura .*Total$")
-
 
 
   # derrubar as colunas não usadas
