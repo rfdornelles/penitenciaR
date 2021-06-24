@@ -78,14 +78,13 @@ base_estabelecimento <- base_estabelecimento %>%
     checa(dest_original_tipo, "cumprimento de pena em regime semi.*aberto") ~ "Regime semiaberto",
     checa(dest_original_tipo, "cumprimento de pena em regime aberto") ~ "Regime aberto",
     checa(dest_original_tipo, "medida de segurança de interna.*o") ~ "Medida de segurança",
-    checa(dest_original_tipo, "diversos tipos de regime") ~ "Regimes diversos",
+    checa(dest_original_tipo, "diversos tipos de regime|(todos|diversos).*regimes|misto") ~ "Regimes diversos",
     checa(dest_original_tipo, "exames gerais e criminológico|triagem") ~ "Triagem",
     checa(dest_original_tipo, "patronato") ~ "Patronato",
     checa(dest_original_tipo, "monitora.* eletr.nic.|virtual|central de moni.*|monitora.* de") ~ "Monitoração eletrônica",
     checa(dest_original_tipo, "APAC") ~ "APAC",
     checa(dest_original_tipo, "RDD|regime disciplinar") ~ "Regime Disciplinar Diferenciado",
     checa(dest_original_tipo, "delegacia") ~ "Delegacia de polícia",
-    checa(dest_original_tipo, "(todos|diversos).*regimes|misto") ~ "Diversos regimes",
     TRUE ~ "Outro"
     )
   )

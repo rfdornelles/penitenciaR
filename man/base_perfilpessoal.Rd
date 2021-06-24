@@ -12,9 +12,6 @@
 \item{long}{longitude}
 }
 }
-\source{
-SISDEPEN
-}
 \usage{
 base_perfilpessoal
 }
