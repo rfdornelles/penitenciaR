@@ -6,8 +6,8 @@
 #' que a coluna de contendo o nome do estabelecimento seja renomeada para
 #' `nome_estabelcimento` e UF seja renomeada para `sigla_uf`.
 #'
-#'  Além disso, será gerado um identificador para a base na coluna
-#'  `id_origem_sisdepen` de acordo com o ano e período a que ela se referir.
+#' Além disso, será gerado um identificador para a base na coluna
+#' `id_origem_sisdepen` de acordo com o ano e período a que ela se referir.
 #'
 #' @param path Caminho para a base. Deve conter o ano e mês de origem.
 #' Deve ser `.xlsx`
@@ -92,6 +92,14 @@ carregar_base_sisdepen <- function(path, padrao = "guess") {
                                                      "[[:punct:]]"),
       nome_estabelecimento = stringr::str_to_upper(nome_estabelecimento)
     )
+
+  # sigla_uf: limpar e tirar união
+  base_estabelecimento <- base_estabelecimento %>%
+    dplyr::mutate(
+      sigla_uf = stringr::str_remove_all(sigla_uf, "União| \\- "),
+      sigla_uf = dplyr::if_else(sigla_uf == "", NA_character_, sigla_uf)
+    )
+
 
   return(base_xlsx)
 

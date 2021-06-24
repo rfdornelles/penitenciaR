@@ -41,14 +41,6 @@ base_estabelecimento <- base_estabelecimento %>%
   dplyr::select(-quantidade_celas_interditadas1,
                 -quantidade_celas_interditadas2)
 
-# sigla_uf ----------------------------------------------------------------
-
-# sigla_uf: tirar união
-base_estabelecimento <- base_estabelecimento %>%
-  dplyr::mutate(
-    sigla_uf = stringr::str_remove_all(sigla_uf, "União| \\- "),
-    sigla_uf = dplyr::if_else(sigla_uf == "", NA_character_, sigla_uf)
-  )
 
 
 # tipo_gestao -------------------------------------------------------------
@@ -107,7 +99,7 @@ base_estabelecimento <- base_estabelecimento %>%
 base_estabelecimento <- base_estabelecimento %>%
   dplyr::mutate(
     dest_original_original = dplyr::case_when(
-      # há alguns casos em que ambas as opções foram marcadas ¯\_(ツ)_/¯
+      # há alguns casos em que ambas as opções foram marcadas ¯\_(´.´)_/¯
       # colocando-as em primeiro lugar e já transformando em NA pra não
       # poluir as demais
       checa(dest_original_original, "Concebido como estabelecimento penal \\| Adaptado para estabelecimento penal") ~ NA_character_,
