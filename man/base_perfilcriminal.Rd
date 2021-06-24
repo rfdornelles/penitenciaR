@@ -47,7 +47,7 @@ quando for o caso.
 \item \emph{roubo} : podendo ser _simples ou _qualificado
 \item \emph{latrocinio} : também conhecido como roubo seguido de morte
 \item \emph{extorsao} : art. 158 do CP
-_ \emph{extorsaomedsequestro} : extorsão mediante sequestro (art. 159 do CP)
+\item \emph{extorsaomedsequestro} : extorsão mediante sequestro (art. 159 do CP)
 \item \emph{apropindebita} : apropriação indébita (art. 168)
 \item \emph{apropindebita_previdenciaria} : apropriação indébita previdenciária (art. 168-A)
 \item \emph{estelionato}
@@ -58,7 +58,7 @@ _ \emph{extorsaomedsequestro} : extorsão mediante sequestro (art. 159 do CP)
 \emph{Contra a dignidade sexual}
 \itemize{
 \item \emph{estupro}
-_ \emph{estupro_vulneravel}
+\item \emph{estupro_vulneravel}
 \item \emph{atentadoviolentopudor}
 \item \emph{corrupcaomenores}
 \item \emph{traficopessoasexploracaosexua} podendo ser _interno ou _internacional
@@ -66,13 +66,47 @@ _ \emph{estupro_vulneravel}
 }
 
 \emph{Contra a fé pública e contra administração pública}
+\itemize{
+\item \emph{quadrilha} formação de quadrilha ou bando (art. 288)
+\item \emph{moedafalsa}
+\item \emph{falsificacaodocpublicos} falsificação de papéis, seos, sinal e documentos
+públicos (art. 293 a 297)
+\item \emph{falsidadeideologica}
+\item \emph{usodocfalso} uso de documento falso
+\item \emph{peculato}
+\item \emph{concussão} concussão e excesso de exação (art. 316)
+\item \emph{corrupcao_ativa}
+\item \emph{corrupcao_passiva}
+\item \emph{contrabando} contrabando ou descaminho
+}
 
 \emph{Drogas}
+\itemize{
+\item \emph{drogas_trafico} Art. 33 da Lei de Drogas atual (e art. 12 da anterior)
+\item \emph{drogas_trafico_internacional} Art. 33 com 40, I da Lei de Drogas atual
+\item \emph{drogas_associacao} Associação para o tráfico, art. 35 da Lei de Drogas
+}
 
-\emph{Armas}
+\emph{Armas} (crimes do Estatuto do Desarmamento)
+\itemize{
+\item \emph{armas_usopermitido} Porte ilegal de arma de fogo de uso permitido (art. 14)
+\item \emph{armas_usorestrito} Posse ou porte ilegal de arma de uso restrito (art. 16)
+\item \emph{armas_disparo} Disparo de arma de fogo (art. 15)
+\item \emph{armas_comercioilegal} Comércio ilegal de armas de fogo (art. 17)
+\item \emph{armas_traficointernacional} Tráfico internacional de arma de fogo (art. 18)
+}
 
 \emph{Outros crimes de legislação específica}
-_
+\itemize{
+\item \emph{transito_homicidioculposo} Homicídio culposo na condução de veículo automotor (art. 302 do Código de Trânsito)
+\item \emph{transito_outros} Outros crimes previstos no Código de Trânsito Braileiro
+\item \emph{estatutocriancaadolescente} Crimes previstos no ECA (Estatuto da Criança e Adolescente).
+Note que em regra são crimes cometidos \emph{contra} crianças e adolescentes e não \emph{por} crianças e adolecentes.
+Nesse último caso essas pessoas não estão no sistema penitenciário pois se aplica legislação específica.
+\item \emph{contrameioambiente} Crimes previstos na Lei dos Crimes Ambientais (Lei 9.605)
+\item \emph{genocidio} Crime previsto na Lei 2.889/56
+\item \emph{tortura} Crime previsto na Lei 9.455/97
+}
 
 }
 }

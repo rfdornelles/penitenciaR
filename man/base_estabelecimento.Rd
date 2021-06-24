@@ -20,8 +20,8 @@ dezembro ou "único", nos anos em que era enviado apenas uma vez}
 \item{ambito_federativo}{A qual esfera pertence: Estadual ou Federal}
 \item{terceiriza_administrativo, terceiriza_ass_juridica, terceiriza_ass_social,
 terceiriza_laboral, terceiriza_educacao, terceiriza_saude, terceiriza_lavanderia,
-terceiriza_limpeza, terceiriza_seguranca, terceiriza_alimentacao, terceiriza_nenhum}
-{Se há terceirização de alguma das modalidades de:
+terceiriza_limpeza, terceiriza_seguranca, terceiriza_alimentacao, terceiriza_nenhum}{
+Se há terceirização de alguma das modalidades de:
 \enumerate{
 \item Serviços administrativos,
 \item Assistência jurídica,

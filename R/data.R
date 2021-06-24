@@ -33,8 +33,8 @@
 #'   \item{ambito_federativo}{A qual esfera pertence: Estadual ou Federal}
 #'   \item{terceiriza_administrativo, terceiriza_ass_juridica, terceiriza_ass_social,
 #'   terceiriza_laboral, terceiriza_educacao, terceiriza_saude, terceiriza_lavanderia,
-#'   terceiriza_limpeza, terceiriza_seguranca, terceiriza_alimentacao, terceiriza_nenhum}
-#'   {Se há terceirização de alguma das modalidades de:
+#'   terceiriza_limpeza, terceiriza_seguranca, terceiriza_alimentacao, terceiriza_nenhum}{
+#'   Se há terceirização de alguma das modalidades de:
 #'
 #'   1. Serviços administrativos,
 #'   2. Assistência jurídica,
@@ -271,7 +271,7 @@
 #' - *roubo* : podendo ser _simples ou _qualificado
 #' - *latrocinio* : também conhecido como roubo seguido de morte
 #' - *extorsao* : art. 158 do CP
-#' _ *extorsaomedsequestro* : extorsão mediante sequestro (art. 159 do CP)
+#' - *extorsaomedsequestro* : extorsão mediante sequestro (art. 159 do CP)
 #' - *apropindebita* : apropriação indébita (art. 168)
 #' - *apropindebita_previdenciaria* : apropriação indébita previdenciária (art. 168-A)
 #' - *estelionato*
@@ -280,20 +280,46 @@
 #'
 #' _Contra a dignidade sexual_
 #' - *estupro*
-#' _ *estupro_vulneravel*
+#' - *estupro_vulneravel*
 #' - *atentadoviolentopudor*
 #' - *corrupcaomenores*
 #' - *traficopessoasexploracaosexua* podendo ser _interno ou _internacional
 #' - *outros_dignidadesexual*
 #'
 #' _Contra a fé pública e contra administração pública_
+#' - *quadrilha* formação de quadrilha ou bando (art. 288)
+#' - *moedafalsa*
+#' - *falsificacaodocpublicos* falsificação de papéis, seos, sinal e documentos
+#' públicos (art. 293 a 297)
+#' - *falsidadeideologica*
+#' - *usodocfalso* uso de documento falso
+#' - *peculato*
+#' - *concussão* concussão e excesso de exação (art. 316)
+#' - *corrupcao_ativa*
+#' - *corrupcao_passiva*
+#' - *contrabando* contrabando ou descaminho
 #'
 #' _Drogas_
+#' - *drogas_trafico* Art. 33 da Lei de Drogas atual (e art. 12 da anterior)
+#' - *drogas_trafico_internacional* Art. 33 com 40, I da Lei de Drogas atual
+#' - *drogas_associacao* Associação para o tráfico, art. 35 da Lei de Drogas
 #'
-#' _Armas_
+#' _Armas_ (crimes do Estatuto do Desarmamento)
+#' - *armas_usopermitido* Porte ilegal de arma de fogo de uso permitido (art. 14)
+#' - *armas_usorestrito* Posse ou porte ilegal de arma de uso restrito (art. 16)
+#' - *armas_disparo* Disparo de arma de fogo (art. 15)
+#' - *armas_comercioilegal* Comércio ilegal de armas de fogo (art. 17)
+#' - *armas_traficointernacional* Tráfico internacional de arma de fogo (art. 18)
 #'
 #' _Outros crimes de legislação específica_
-#'
+#' - *transito_homicidioculposo* Homicídio culposo na condução de veículo automotor (art. 302 do Código de Trânsito)
+#' - *transito_outros* Outros crimes previstos no Código de Trânsito Braileiro
+#' - *estatutocriancaadolescente* Crimes previstos no ECA (Estatuto da Criança e Adolescente).
+#' Note que em regra são crimes cometidos *contra* crianças e adolescentes e não *por* crianças e adolecentes.
+#' Nesse último caso essas pessoas não estão no sistema penitenciário pois se aplica legislação específica.
+#' - *contrameioambiente* Crimes previstos na Lei dos Crimes Ambientais (Lei 9.605)
+#' - *genocidio* Crime previsto na Lei 2.889/56
+#' - *tortura* Crime previsto na Lei 9.455/97
 #'
 #' }
 #' }
@@ -301,12 +327,13 @@
 #' @encoding UTF-8
 "base_perfilcriminal"
 
-#' Variáveis relativas à população prisional
+#' Variáveis relativas ao perfil pessoal da população prisioal
 #'
 #' @description
-#' Seleção das principais variáveis relativas à população prisional contidas no
-#' item 4 do formulário do SISDEPEN. Em geral, dizem respeito às caractarísticas
-#' população custodiada na unidade.
+#' Seleção das principais variáveis relativas à população prisional contidas na
+#' primeira parte do item 5 do formulário do SISDEPEN. Em geral, dizem respeito
+#' às características pessoais tais como idade, raça, gênero, nacionalidade,
+#' existência ou não de deficiência física, etc.
 #'
 #' @format :
 #' \describe{
@@ -318,20 +345,45 @@
 #' \item{nome_estabelecimento, sigla_uf e cod_ibge}{Nome do estabelecimento prisional,
 #' UF de onde está o estabelecimento e o código IBGE (7 dígitos) do município onde
 #' está localizado}
-#' \item{quantidade_(situação)_(regime)_(origem)_(gênero)}{Variáveis indicando a quantidade
-#' de pessoas custodiadas no momento do envio das respostas ao SISDEPEN. Não se confunde
-#' com a quantidade de "vagas", já que pode ser menor ou - infelizmente, na maior parte
-#' dos casos - muito maior do que o esperado.
+#' \item{possui_registro_raca, possui_registro_idade, possui_registro_pcd, possui_registro_estadocivi,
+#' possui_registro_procedencia}{Informa se a unidade possui condições de obter em seus registros
+#' as informações respectivas (raca, idade, etc) e em que grau (de todas as pessoas ou de parte delas).
+#' Pode ser relevante para saber o grau de confiança que se pode ter dessa informação.}
+#' \item{quantidade_raca_)}{Informa a quantidade de pessoas por cada uma das raças ou etnias
+#' de cada um dos gêneros (_mas ou _fem).
+#' Não está claro se o dado é obtido através apenas de autodeclaração ou se essa
+#' categorização é feita com base em outra maneira (o que consta de cadastro público ou
+#' interpretação da própria unidade, por exemplo).
 #'
-#' Para fins do SISDEPEN a pessoa deixa de ser considerada provisória quando há sentença,
-#' independente de ainda cabe recurso (ou seja, mesmo que não haja o trânsito em julgado).
-#' Caso a pessoa esteja condenada mas também possua prisão provisória por outro processo ela
-#' será considerada, para fins do SISDEPEN, condenada.
+#' Pode ser:
+#' - *_branca_*
+#' - *_preta_*
+#' - *_parda_*
+#' - *_indigena_*
+#' - *_naoinformada_*
 #'
-#' Essas variáveis estão em uma estrutura divididos pela situação processual, regime,
-#' origem da prisão (qual Justiça) e gênero:
+#' }
+#' \item{quantidade_idade_)}{Divisão da população prisional existente na unidade de
+#' acordo com faixas etárias, para cada um dos gêneros masculino e feminino. As faixas
+#' etárias existentes são:
 #'
-
+#' -*18 a 24* anos
+#' -*25 a 29* anos
+#' -*30 a 34* anos
+#' -*35 a 45* anos
+#' -*46 a 60* anos
+#' -*61 a 70* anos
+#' -*mais de 70* anos
+#' -*naoinformada*
+#'
+#' }
+#' \item{quantidade_procedencia_)}{Divisão da população de acordo com a zona
+#' de procedência da pessoa, dividido entre masculino e feminino. Pode ser:
+#'
+#' -*interior*
+#' -*rmetropolitana* região metropolitana
+#' -*rural* zona rural
+#'
 #' }
 #' }
 #' @source https://www.gov.br/depen/pt-br/sisdepen/mais-informacoes/bases-de-dados

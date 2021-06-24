@@ -4,7 +4,7 @@
 \encoding{UTF-8}
 \name{base_perfilpessoal}
 \alias{base_perfilpessoal}
-\title{Variáveis relativas à população prisional}
+\title{Variáveis relativas ao perfil pessoal da população prisioal}
 \format{
 :
 \describe{
@@ -16,40 +16,46 @@ dezembro ou "único", nos anos em que era enviado apenas uma vez}
 \item{nome_estabelecimento, sigla_uf e cod_ibge}{Nome do estabelecimento prisional,
 UF de onde está o estabelecimento e o código IBGE (7 dígitos) do município onde
 está localizado}
-\item{quantidade_(situação)\emph{(regime)}(origem)_(gênero)}{Variáveis indicando a quantidade
-de pessoas custodiadas no momento do envio das respostas ao SISDEPEN. Não se confunde
-com a quantidade de "vagas", já que pode ser menor ou - infelizmente, na maior parte
-dos casos - muito maior do que o esperado.
+\item{possui_registro_raca, possui_registro_idade, possui_registro_pcd, possui_registro_estadocivi,
+possui_registro_procedencia}{Informa se a unidade possui condições de obter em seus registros
+as informações respectivas (raca, idade, etc) e em que grau (de todas as pessoas ou de parte delas).
+Pode ser relevante para saber o grau de confiança que se pode ter dessa informação.}
+\item{quantidade_raca_)}{Informa a quantidade de pessoas por cada uma das raças ou etnias
+de cada um dos gêneros (_mas ou _fem).
+Não está claro se o dado é obtido através apenas de autodeclaração ou se essa
+categorização é feita com base em outra maneira (o que consta de cadastro público ou
+interpretação da própria unidade, por exemplo).
 
-Para fins do SISDEPEN a pessoa deixa de ser considerada provisória quando há sentença,
-independente de ainda cabe recurso (ou seja, mesmo que não haja o trânsito em julgado).
-Caso a pessoa esteja condenada mas também possua prisão provisória por outro processo ela
-será considerada, para fins do SISDEPEN, condenada.
-
-Essas variáveis estão em uma estrutura divididos pela situação processual, regime,
-origem da prisão (qual Justiça) e gênero:
-
-\emph{Situação processual}
 Pode ser:
-\enumerate{
-\item \emph{presoprovisorio} Indicando serem provisórios (sem sentença condenatória)
-\item \emph{sentenca} Indicando serem já sentenciados
-\item \emph{medseg} Medida de segurança
+\itemize{
+\item \emph{\emph{branca}}
+\item \emph{\emph{preta}}
+\item \emph{\emph{parda}}
+\item \emph{\emph{indigena}}
+\item \emph{\emph{naoinformada}}
 }
 
-\emph{Regime de pena}
-\enumerate{
-\item Se \emph{sentenca} pode variar entre \emph{ra} (regime aberto), \emph{rsa} (regime semiaberto) ou
-\emph{rf} (regime fechado)
-\item Se \emph{medseg} pode ser \emph{ambulatorial} (tratamento ambulatorial) ou \emph{internacao}
 }
+\item{quantidade_idade_)}{Divisão da população prisional existente na unidade de
+acordo com faixas etárias, para cada um dos gêneros masculino e feminino. As faixas
+etárias existentes são:
 
-\emph{Justiça de origem}
-\enumerate{
-\item \emph{jusestadual} : justiça estadual
-\item \emph{jusfederal} : justiça federal
-\item \emph{outrajus} : outras justiças como Trabalhista, Eleitoral ou cível.
+-\emph{18 a 24} anos
+-\emph{25 a 29} anos
+-\emph{30 a 34} anos
+-\emph{35 a 45} anos
+-\emph{46 a 60} anos
+-\emph{61 a 70} anos
+-\emph{mais de 70} anos
+-\emph{naoinformada}
+
 }
+\item{quantidade_procedencia_)}{Divisão da população de acordo com a zona
+de procedência da pessoa, dividido entre masculino e feminino. Pode ser:
+
+-\emph{interior}
+-\emph{rmetropolitana} região metropolitana
+-\emph{rural} zona rural
 
 }
 }
@@ -61,8 +67,9 @@ https://www.gov.br/depen/pt-br/sisdepen/mais-informacoes/bases-de-dados
 base_perfilpessoal
 }
 \description{
-Seleção das principais variáveis relativas à população prisional contidas no
-item 4 do formulário do SISDEPEN. Em geral, dizem respeito às caractarísticas
-população custodiada na unidade.
+Seleção das principais variáveis relativas à população prisional contidas na
+primeira parte do item 5 do formulário do SISDEPEN. Em geral, dizem respeito
+às características pessoais tais como idade, raça, gênero, nacionalidade,
+existência ou não de deficiência física, etc.
 }
 \keyword{datasets}
