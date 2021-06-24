@@ -22,7 +22,7 @@
 #' @export
 #'
 
-renomeia_coluna <- function (base, nome, coluna, fixa = "cod_ibge") {
+renomeia_coluna <- function (base, nome, coluna, fixa = FALSE) {
 
   base_resposta <- base %>%
     dplyr::rename({{nome}} := dplyr::matches(match = coluna,
