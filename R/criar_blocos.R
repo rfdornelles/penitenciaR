@@ -355,12 +355,12 @@ arruma_bloco_perfilcriminal <- function(base) {
     # outros crimes do CP
     renomeia_coluna("quantidade_incidencia_moedafalsa", "moeda falsa.*Total$") %>%
     renomeia_coluna("quantidade_incidencia_falsificacaodocpublicos", "falsifica..o.*p.blicos.*Total$") %>%
-    renomeia_coluna("quantidade_incidencia_falisadeideologica", "falsidade ideol.gica.*Total$") %>%
+    renomeia_coluna("quantidade_incidencia_falsidadeideologica", "falsidade ideol.gica.*Total$") %>%
     renomeia_coluna("quantidade_incidencia_usodocfalso", "uso de documento falso.*Total$") %>%
     renomeia_coluna("quantidade_incidencia_peculato", "peculato.*Total$") %>%
     renomeia_coluna("quantidade_incidencia_concussao", "concuss.o e excesso de.*Total$") %>%
     renomeia_coluna("quantidade_incidencia_corrupcao_passiva", "corrup..o passiva.*Total$") %>%
-    renomeia_coluna("quantidade_incidencia_corrpcao_ativa", "corrup..o ativa.*Total$") %>%
+    renomeia_coluna("quantidade_incidencia_corrupcao_ativa", "corrup..o ativa.*Total$") %>%
     renomeia_coluna("quantidade_incidencia_contrabando", "contrabando ou descaminho.*Total$") %>%
     ### leis especiais
     # drogas
