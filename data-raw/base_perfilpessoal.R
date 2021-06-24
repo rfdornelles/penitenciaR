@@ -3,6 +3,10 @@ library(penitenciaR)
 # Carregar a base ---------------------------------------------------------
 base_perfilpessoal <- carrega_e_aplica(arruma_bloco_perfilpessoal)
 
+# Remove colunas vazias ---------------------------------------------------
+
+base_perfilpessoal <- base_perfilpessoal %>%
+  dplyr::select(-dplyr::contains("..."))
 
 # Classes -----------------------------------------------------------------
 

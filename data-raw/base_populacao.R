@@ -3,6 +3,10 @@ library(penitenciaR)
 # Carregar a base ---------------------------------------------------------
 base_populacao <- carrega_e_aplica(arruma_bloco_populacao)
 
+# Remove colunas vazias ---------------------------------------------------
+
+base_populacao <- base_populacao %>%
+  dplyr::select(-dplyr::contains("..."))
 
 # Ajustar classe ----------------------------------------------------------
 
