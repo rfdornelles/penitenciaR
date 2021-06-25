@@ -206,19 +206,51 @@ variáveis.
 
 # Que análises podem ser feitas
 
-Eu quero:
+Com as informações existentes já é possível realizar diversas análises
+úteis (e, espero, interessantes). Vamos aqui testar algumas delas
+
+## Quantidade de unidades prisionais existentes no país
+
+<img src="C:\Users\Rodrigo\AppData\Local\Temp\RtmpyEzotQ\file26c07a251121.png" width="100%" />
+
+### Distribuição das unidades por estados
+
+<img src="C:\Users\Rodrigo\AppData\Local\Temp\RtmpyEzotQ\file26c07d887931.png" width="100%" />
+
+## Tipo de gestão das unidades
+
+<img src="man/figures/README-grafico_tipo_gestao-1.png" width="100%" />
+
+## Quantidade de presos provisórios por Estado
+
+<img src="man/figures/README-grafico_provisorios_estado-1.png" width="100%" />
+
+\# quantidade de presos por estado
+
+\# quantidade de vagas por estado
+
+\# superlotação por estado
+
+\# proporção de crimes
+
+\# quantidade de homens e mulheres
+
+## Comparação entre homens e mulheres presos
+
+<img src="man/figures/README-mapas_prisao_genero-1.png" width="100%" />
+
+\# quantidade de pessoas presas por raça
 
 -   distribuição no país de unidades prisionais (saber tipo)
+
 -   comparar vagas x lotação no país
+
 -   evolução da população prisional por ano (desagregar por raça, gênero
     e crime)
--   comparações por estado: taxas de encarceiramento
--   comparar taxas de encarceiramento com criminalidade
--   
 
-separar: base informações das unidades base da capacidade (vagas) base
-da lotação Transformar em base única, podendo comparar a mudança de
-alguns aspectos ao longo do tempo.
+-   comparações por estado: taxas de encarceiramento
+
+-   comparar taxas de encarceiramento com criminalidade
 
 Por exemplo: disponibilidade de vagas e lotação. Mudança de perfil na
 população ao longo do tempo. Ver o impacto do HC coletivo das mães.
@@ -229,3 +261,9 @@ Capacidade - não existe um critério claro Regime de cumprimento de pena
 Provisório/definitivo LEP
 
 # TODO
+
+-   Corrigir a leitura das bases dos anos de 2014 e 2015
+
+-   Ampliar para todas as outras perguntas do SISDEPEN
+
+-   

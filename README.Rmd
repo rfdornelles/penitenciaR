@@ -4,13 +4,39 @@ output: github_document
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-```{r, include = FALSE}
+```{r, include= FALSE}
 knitr::opts_chunk$set(
+  message=FALSE, 
+  warning=FALSE,
+  echo = FALSE,
   collapse = TRUE,
   comment = "#>",
   fig.path = "man/figures/README-",
   out.width = "100%"
 )
+
+library(ggplot2)
+library(penitenciaR)
+library(patchwork)
+
+
+mapa_br <- geobr::read_state()
+
+tema_mapa <- function() {
+    
+    theme(
+      panel.background = element_rect(fill='transparent',
+                                      colour='transparent'),
+      panel.grid.major = element_blank(),
+      panel.grid.minor = element_blank(),
+      axis.line=element_blank(),
+      axis.text.x=element_blank(),
+      axis.text.y=element_blank(),
+      axis.ticks=element_blank(),
+      axis.title.x=element_blank(),
+      axis.title.y=element_blank()
+    )
+  }
 ```
 
 # Introdução
@@ -126,16 +152,196 @@ Cada uma delas foi documentada, com explicações de cada uma de suas variáveis
 
 # Que análises podem ser feitas
 
-Eu quero:
+Com as informações existentes já é possível realizar diversas análises úteis (e, espero, interessantes). Vamos aqui testar algumas delas
+
+## Quantidade de unidades prisionais existentes no país
+
+```{r tabela_unidades_existentes}
+
+base_estabelecimento %>%
+  dplyr::filter(situacao_estabelecimento == "Ativo") %>%
+  dplyr::select(id_ano_sisdepen:nome_estabelecimento,
+                ambito_federativo,
+                sigla_uf) %>%
+  dplyr::count(id_ano_sisdepen, id_mes_sisdepen) %>%
+  kableExtra::kable(col.names = c("Ano", "Mês", "Quantidade"), format.args = list(big.mark = ".")) %>% 
+  kableExtra::kable_paper() %>% 
+  kableExtra::as_image()
+  
+
+```
+
+### Distribuição das unidades por estados
+
+```{r tabela_quantidade_por_estado}
+
+base_estabelecimento %>% 
+  dplyr::filter(id_ano_sisdepen %in% c(2014, 2020)) %>% 
+  dplyr::group_by(id_ano_sisdepen, sigla_uf) %>% 
+  dplyr::count() %>% 
+  tidyr::pivot_wider(names_from = id_ano_sisdepen, values_from = n) %>%
+  janitor::adorn_percentages(denominator = "col") %>%
+  dplyr::arrange(-`2020`) %>% 
+  janitor::adorn_pct_formatting() %>% 
+  knitr::kable(col.names = c("UF", "2014", "2020"))  %>% 
+  kableExtra::kable_paper() %>% 
+  kableExtra::as_image()
+```
+
+## Tipo de gestão das unidades
+
+```{r grafico_tipo_gestao}
+
+base_estabelecimento %>%
+  dplyr::filter(situacao_estabelecimento == "Ativo") %>%
+  dplyr::select(id_ano_sisdepen:nome_estabelecimento,
+                ambito_federativo, sigla_uf, tipo_gestao) %>%
+  dplyr::count(id_ano_sisdepen, id_mes_sisdepen, tipo_gestao) %>%
+  dplyr::mutate(
+    data_sisdepen = paste0(id_ano_sisdepen, "-", id_mes_sisdepen, "-01"),
+    data_sisdepen = lubridate::ymd(data_sisdepen)
+    ) %>%
+  ggplot(aes(x = data_sisdepen, y = n, fill = tipo_gestao)) +
+  geom_col() +
+  theme_classic() +
+  scale_fill_brewer(palette = "Set2", direction = -1) +
+  labs(fill = "Tipo de gestão", 
+       y = "Estabelecimentos", 
+       x = "Ano",
+       title = "Tipo de gestão das unidades prisionais")
+```
+
+```{r bases_intermediarias_populacao}
+
+base_quantidade_presos <- base_populacao %>%
+ # dplyr::filter(id_ano_sisdepen == "2020") %>%
+  dplyr::rowwise() %>%
+  dplyr::mutate(
+    total_provisorios =
+      sum(dplyr::across(
+        dplyr::matches("provisorio")), na.rm = TRUE),
+    total_rf =
+      sum(dplyr::across(
+        dplyr::matches("sentenca_rf")), na.rm = TRUE),
+    total_rsa =
+      sum(dplyr::across(
+        dplyr::matches("sentenca_rsa")), na.rm = TRUE),
+    total_ra =
+      sum(dplyr::across(
+        dplyr::matches("sentenca_ra")), na.rm = TRUE),
+    total_mseg =
+      sum(dplyr::across(
+        dplyr::matches("sentenca_medseg")), na.rm = TRUE),
+    total_populacao =
+      sum(dplyr::across(
+        dplyr::matches("quantidade_")), na.rm = TRUE),
+    total_condenados =
+      sum(dplyr::across(
+        dplyr::matches("sentenca|medseg")), na.rm = TRUE),
+    total_masc =
+      sum(dplyr::across(
+        dplyr::matches("_mas$")), na.rm = TRUE),
+    total_fem =
+      sum(dplyr::across(
+        dplyr::matches("_fem$")), na.rm = TRUE),
+    ) %>%
+  dplyr::select(-dplyr::contains("quantidade"))
+
+tabela_quantidade_presos_uf <- base_quantidade_presos %>%
+  dplyr::filter(id_ano_sisdepen == 2020) %>%
+  dplyr::group_by(sigla_uf) %>%
+  dplyr::summarise(
+    sum_total_condenados = sum(total_condenados),
+    sum_total_provisorios = sum(total_provisorios),
+    sum_total_pop = sum(total_populacao),
+    sum_total_masc = sum(total_masc),
+    sum_total_fem = sum(total_fem),
+    pct_provisorios = sum_total_provisorios/sum_total_pop,
+    pct_condenados = sum_total_condenados/sum_total_pop,
+    pct_masc = sum_total_masc/sum_total_pop,
+    pct_fem = sum_total_fem/sum_total_pop
+  )
+```
+
+## Quantidade de presos provisórios por Estado
+
+```{r grafico_provisorios_estado}
+
+tabela_quantidade_presos_uf %>%
+  dplyr::select(sigla_uf, pct_provisorios) %>%
+  # tidyr::pivot_longer(names_to = "tipo_prisao",
+  #                     cols = pct_provisorios:pct_condenados) %>%
+  dplyr::mutate(sigla_uf = forcats::fct_reorder(
+    .desc = TRUE,
+    sigla_uf,
+    pct_provisorios)) %>%
+  ggplot(aes(x = sigla_uf, y = pct_provisorios, fill = pct_provisorios)) +
+  geom_col(show.legend = FALSE) +
+  theme_classic() +
+  scale_fill_viridis_c(direction = -1, option = "magma") +
+  labs(x = "Estados", y = "% de provisórios",
+       title = "Proporção de presos provisórios em relação ao total") +
+  scale_y_continuous(labels = scales::percent)
+```
+
+\# quantidade de presos por estado
+
+\# quantidade de vagas por estado
+
+\# superlotação por estado
+
+\# proporção de crimes
+
+\# quantidade de homens e mulheres
+
+## Comparação entre homens e mulheres presos
+
+```{r mapas_prisao_genero}
+
+mapa_mulheres <- mapa_br %>% 
+  dplyr::left_join(
+  y = tabela_quantidade_presos_uf %>% 
+  dplyr::select(sigla_uf, pct_fem), 
+  by = c("abbrev_state" = "sigla_uf")
+  ) %>% 
+  ggplot() +
+  geom_sf(aes(fill = pct_fem), show.legend = F) +
+  geom_sf_text(mapping = aes(label = abbrev_state), size = 2, 
+               color = "grey") +
+  scale_fill_gradient(low = "#a88bc4", high = "#1d0338") +
+  tema_mapa() +
+  labs(title = "Proporção de mulheres presas")
+  
+
+mapa_homens <- mapa_br %>% 
+  dplyr::left_join(
+    y = tabela_quantidade_presos_uf %>% 
+      dplyr::select(sigla_uf, pct_masc), 
+    by = c("abbrev_state" = "sigla_uf")
+  ) %>% 
+  ggplot() +
+  geom_sf(aes(fill = pct_masc), show.legend = F) +
+  geom_sf_text(mapping = aes(label = abbrev_state), size = 2, 
+               color = "black") +
+  scale_fill_gradient(low = "#ffd8a8", high = "#b06100") +
+  tema_mapa() +
+  labs(title = "Proporção de homens presos")
+
+mapa_homens + mapa_mulheres
+
+```
+
+\# quantidade de pessoas presas por raça
 
 -   distribuição no país de unidades prisionais (saber tipo)
--   comparar vagas x lotação no país
--   evolução da população prisional por ano (desagregar por raça, gênero e crime)
--   comparações por estado: taxas de encarceiramento
--   comparar taxas de encarceiramento com criminalidade
--   
 
-separar: base informações das unidades base da capacidade (vagas) base da lotação Transformar em base única, podendo comparar a mudança de alguns aspectos ao longo do tempo.
+-   comparar vagas x lotação no país
+
+-   evolução da população prisional por ano (desagregar por raça, gênero e crime)
+
+-   comparações por estado: taxas de encarceiramento
+
+-   comparar taxas de encarceiramento com criminalidade
 
 Por exemplo: disponibilidade de vagas e lotação. Mudança de perfil na população ao longo do tempo. Ver o impacto do HC coletivo das mães.
 
@@ -144,3 +350,9 @@ Por exemplo: disponibilidade de vagas e lotação. Mudança de perfil na popula�
 Capacidade - não existe um critério claro Regime de cumprimento de pena Provisório/definitivo LEP
 
 # TODO
+
+-   Corrigir a leitura das bases dos anos de 2014 e 2015
+
+-   Ampliar para todas as outras perguntas do SISDEPEN
+
+-   
