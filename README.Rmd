@@ -43,17 +43,17 @@ tema_mapa <- function() {
 
 ## O que é esse pacote
 
-No contexto do curso de "Faxina de Dados" da Curso-R o trabalho final consiste em realizar um projeto de faxina de dados em que possamos aplicar os conceitos trabalhados no curso.
+No contexto do curso de ["Faxina de Dados"](https://curso-r.com/cursos/faxina/) da Curso-R o trabalho final consiste em realizar um projeto de faxina de dados em que possamos aplicar os conceitos trabalhados no curso.
 
-Escolhi, então, um tema de meu interesse (o sistema penitenciário) e no presente projeto tento uma primeira versão de pacote que permita acessar os dados do SISDEPEN de forma simples, facilitando análises futuras.
+Escolhi, então, um tema de meu interesse (o [sistema penitenciário](https://www.politize.com.br/sistema-prisional-e-direitos-humanos-entenda/)) e no presente projeto tento uma primeira versão de pacote que permita acessar os dados do SISDEPEN de forma simples, facilitando análises futuras.
 
-Esses dados são coletados pelo Departamento Penitenciário Nacional (DEPEN) de todas as unidades prisionais do país desde 2014. Primeiro uma vez ao ano e depois em duas rodadas semestrais. As informações são em um formato de survey preenchidos pelas próprias unidades.
+Esses dados são coletados pelo [Departamento Penitenciário Nacional (DEPEN)](https://www.gov.br/depen/pt-br) de todas as unidades prisionais do país desde 2014. Primeiro uma vez ao ano e depois em duas rodadas semestrais. As informações são em um formato de *survey* preenchidos pelas próprias unidades.
 
-Também, como forma de tentar contribuir com a comunidade, após os feedbacks do projeto, espero poder submeter os dados ao excelente projeto Base dos Dados. Por isso, o projeto foi realizado tendo em mente as orientações da equipe do Base dos Dados: <https://basedosdados.github.io/mais/colab_data/>
+Também, como forma de tentar contribuir com a comunidade, após os feedbacks do projeto, espero poder submeter os dados ao excelente projeto [Base dos Dados](https://basedosdados.org/). Por isso, o projeto foi realizado tendo em mente as orientações da equipe do Base dos Dados: <https://basedosdados.github.io/mais/colab_data/>
 
 ## Pequena observação: aspecto humano
 
-Há uma frase, costumeiramente atribuída a Ghandi ou a Nelso Mandela, que diz que "É possível julgar o grau de civilização de uma sociedade visitando suas prisões". Independente da autoria, a provocação é bem válida.
+Há uma frase, costumeiramente atribuída a Ghandi ou a Nelso Mandela, que diz que "***É possível julgar o grau de civilização de uma sociedade visitando suas prisões***". Independente da autoria, a provocação é bem válida.
 
 O sistema penitenciário é uma realidade desconhecida. Temos centenas de milhares de pessoas, presas, invisibilizadas porém concretas. Por razões raciais, sócio-econômicas e culturais, a situação é convenientemente escondida de nós e a sociedade, em geral, não se preocupa em entender e conhecer essa realidade tão dura.
 
@@ -61,23 +61,23 @@ Aproveitando o ensejo do trabalho, tentei dar um pouco de concretude a esse aspe
 
 # Por que limpar?
 
-Conforme aprendido no curso, em geral o melhor formato para análises é o tidy, segundo o qual em uma base de dados devemos ter cada observação/indivíduo em uma linha e cada variável em uma coluna. Devemos, também, ter uma base sem informações duplicadas e com as classes corretas (datas estão na classe Date e não character, por exemplo).
+Conforme aprendido no curso, em geral o melhor formato para análises é o *tidy*, segundo o qual em uma base de dados devemos ter cada observação/indivíduo em uma linha e cada variável em uma coluna. Devemos, também, ter uma base sem informações duplicadas e com as classes corretas (datas estão na classe `Date`e não `character`, por exemplo).
 
-A importância de ter os dados limpos e organizados foi bem exemplificada pelo Athos Damiani, que certa vez afirmou que "Por trás de um grande gráfico há uma grande tabela".
+A importância de ter os dados limpos e organizados foi bem exemplificada pelo [Athos Damiani](https://twitter.com/athos_damiani), que certa vez afirmou que "*Por trás de um grande gráfico há sempre uma grande tabela*".
 
 ## O que é a base
 
-Como dito acima, escolhi a base do SISDEPEN para analisarmos. Ela é resultado de um longo survey com diversas questões e é preenchido por um responsável de cada Estado (podendo até ter diversos respondentes dentro da mesma UF). Há perguntas mais e menos abertas e os dados não passam, até onde se sabe, por nenhuma validação.
+Como dito acima, escolhi a base do **SISDEPEN** para analisarmos. Ela é resultado de um longo survey com diversas questões e é preenchido por um responsável de cada Estado (podendo até ter diversos respondentes dentro da mesma UF). Há perguntas mais e menos abertas e os dados não passam, até onde se sabe, por nenhuma validação.
 
-Na página do DEPEN são disponibilizadas bases a partir de 2014, sendo a última delas a de junho de 2020. Embora semestrais (e, portanto, a de dezembro de 2020 já esteja respondida), há uma defasagem de quase um ano entre as bases disponibilizadas.
+[Na página do **DEPEN**](https://www.gov.br/depen/pt-br/sisdepen/mais-informacoes/bases-de-dados)são disponibilizadas bases a partir de 2014, sendo a última delas a de junho de 2020. Embora semestrais (e, portanto, a de dezembro de 2020 já esteja respondida), há uma defasagem de quase um ano entre as bases disponibilizadas.
 
-Cada arquivo é disponibilizado em formato .xlsx
+Cada arquivo é disponibilizado em formato `.xlsx`
 
-## Por que ela não é tidy?
+## Por que ela não é *tidy*?
 
 Em um primeiro olhar poderíamos considerá-la uma base tidy uma vez que cada linha corresponde a uma e somente uma unidade prisional do país.
 
-Contudo, cada base possui cerca de 1.300 (sim, mil e trezentas) colunas, sendo cada uma delas a resposta para uma pergunta do formulário.
+Contudo, cada base possui cerca de 1.300 (*sim, mil e trezentas*) colunas, sendo cada uma delas a resposta para uma pergunta do formulário.
 
 Assim, há variáveis em mais de uma coluna, as classes não estão corretamente configuradas e as respostas categóricas precisam ser padronizadas. Além disso, há casos em que não se tem certeza se um valor NA é por ausência de uma resposta ou porque a pergunta não se aplica àquele caso.
 
@@ -118,37 +118,37 @@ Mais informações: <https://basedosdados.github.io/mais/style_data/#formatos-de
 
 Para ajudar (ou melhor, viabilizar) o trabalho, foram construídas funções que ajudavam em todo o ciclo de baixar e limpar e também para serem "atalhos" de tarefas repetitivas.
 
-Na pasta /R/ existem os scripts:
+Na pasta `/R/`existem os scripts:
 
--   0-funcoes_auxiliares: contendo atalhos e funções para apoiar as etapas do processo
--   1-baixar_planilhas_xlsx_do_sisdepen: que faz o scrap dos arquivos disponíveis no SISDEPEN e salva na pasta padrão do projeto
--   2-carregar_base_sisdepen: que carrega cada um dos arquivos .xslx baixados, mantendo as colunas-chave no formato adequado e padronizado
--   3-dividir_em_blocos_e\_renomear: com as funções que dão origem a cada um dos blocos utilizados e uma função geral para iterar em todos os arquivos
+-   `0-funcoes_auxiliares`: contendo atalhos e funções para apoiar as etapas do processo
+-   `1-baixar_planilhas_xlsx_do_sisdepen`: que faz o scrap dos arquivos disponíveis no SISDEPEN e salva na pasta padrão do projeto
+-   `2-carregar_base_sisdepen`: que carrega cada um dos arquivos .xslx baixados, mantendo as colunas-chave no formato adequado e padronizado
+-   `3-dividir_em_blocos_e_renomear`: com as funções que dão origem a cada um dos blocos utilizados e uma função geral para iterar em todos os arquivos
 
-Além disso, há o script data.R no qual estão documentadas todas as bases geradas, com a descrição de cada uma das variáveis.
+Além disso, há o script `data.R` no qual estão documentadas todas as bases geradas, com a descrição de cada uma das variáveis.
 
 ## Fluxo da limpeza
 
-Na pasta /data-raw/ estão os arquivos utilizados para efetivar o processo de raspagem, limpeza e análise.
+Na pasta `/data-raw/` estão os arquivos utilizados para efetivar o processo de raspagem, limpeza e análise.
 
--   Há um script (1-raspar_e\_baixar_tabelas_sisdepen) que realiza o processo de web scrap e obtém as tabelas do DEPEN, salvando na subpasta /sisdepen/
+-   Há um script (`1-raspar_e_baixar_tabelas_sisdepen`) que realiza o processo de web scrap e obtém as tabelas do DEPEN, salvando na subpasta `/sisdepen/`
 
--   Os scripts limpa_base_X realizam o trabalho de carregar, dividir e montar cada uma das bases a ser exportada. Neles, também é realizado o processo de limpeza - em especial no script relativo à base estabelecimentos, uma vez que o maior número de variáveis categóricas (de texto) trouxe muito mais esforço na padronização.
+-   Os scripts `limpa_base_X` realizam o trabalho de carregar, dividir e montar cada uma das bases a ser exportada. Neles, também é realizado o processo de limpeza - em especial no script relativo à base estabelecimentos, uma vez que o maior número de variáveis categóricas (de texto) trouxe muito mais esforço na padronização.
 
--   Visando trazer mais utilidade, o script extra_busca_cep fornece uma base auxiliar contendo a latitude e longitude de cada um dos CEPs localizados das unidades. Esses dados foram incorporados na base dos estabelecimentos.
+-   Visando trazer mais utilidade, o script `extra_busca_cep` fornece uma base auxiliar contendo a latitude e longitude de cada um dos CEPs localizados das unidades. Esses dados foram incorporados na base dos estabelecimentos.
 
 -   Por fim, há um script realizando as análises que serão incorporadas a esse README.
 
 ## Bases exportadas
 
-Como resultado da análise, foram exportadas as 4 bases a seguir, salvas na pasta /data/ e carregadas automaticamente com o pacote:
+Como resultado da análise, foram exportadas as 4 bases a seguir, salvas na pasta`/data/` e carregadas automaticamente com o pacote:
 
--   base_estabelecimento
--   base_populacao
--   base_perfilpessoal
--   base_perfilcriminal
+-   `base_estabelecimento`
+-   `base_populacao`
+-   `base_perfilpessoal`
+-   `base_perfilcriminal`
 
-Cada uma delas foi documentada, com explicações de cada uma de suas variáveis.
+Cada uma delas **foi documentada**, com explicações de cada uma de suas variáveis.
 
 # Que análises podem ser feitas
 
@@ -164,9 +164,7 @@ base_estabelecimento %>%
                 ambito_federativo,
                 sigla_uf) %>%
   dplyr::count(id_ano_sisdepen, id_mes_sisdepen) %>%
-  kableExtra::kable(col.names = c("Ano", "Mês", "Quantidade"), format.args = list(big.mark = ".")) %>% 
-  kableExtra::kable_paper() %>% 
-  kableExtra::as_image()
+  kableExtra::kable(col.names = c("Ano", "Mês", "Quantidade"), format.args = list(big.mark = ".")) 
   
 
 ```
@@ -183,9 +181,7 @@ base_estabelecimento %>%
   janitor::adorn_percentages(denominator = "col") %>%
   dplyr::arrange(-`2020`) %>% 
   janitor::adorn_pct_formatting() %>% 
-  knitr::kable(col.names = c("UF", "2014", "2020"))  %>% 
-  kableExtra::kable_paper() %>% 
-  kableExtra::as_image()
+  knitr::kable(col.names = c("UF", "2014", "2020")) 
 ```
 
 ## Tipo de gestão das unidades
@@ -331,23 +327,121 @@ mapa_homens + mapa_mulheres
 
 ```
 
-\# quantidade de pessoas presas por raça
+## Distribuição racial nos presídios
 
--   distribuição no país de unidades prisionais (saber tipo)
+```{r grafico_raca1}
+tabela_raca <- base_perfilpessoal %>% 
+  dplyr::filter(id_ano_sisdepen == 2020) %>% 
+  dplyr::rowwise() %>%
+  dplyr::mutate(
+    pop_brancos = sum(dplyr::across(
+      dplyr::matches("raca_branca")), na.rm = TRUE),
+    pop_negros = sum(dplyr::across(
+      dplyr::matches("raca_preta|raca_parda")), na.rm = TRUE),
+    pop_amarela = sum(dplyr::across(
+      dplyr::matches("raca_amarela")), na.rm = TRUE),
+    pop_indigena = sum(dplyr::across(
+      dplyr::matches("raca_branca")), na.rm = TRUE),
+    pop_naoinformada = sum(dplyr::across(
+      dplyr::matches("raca_naoinformada")), na.rm = TRUE)
+  ) %>% 
+  dplyr::select(sigla_uf, dplyr::starts_with("pop_"))
 
--   comparar vagas x lotação no país
 
--   evolução da população prisional por ano (desagregar por raça, gênero e crime)
+tabela_raca %>% 
+  dplyr::ungroup() %>% 
+  dplyr::summarise(brancos = sum(pop_brancos),
+                   negros = sum(pop_negros),
+                   amarela = sum(pop_amarela),
+                   indigena = sum(pop_indigena),
+                   na = sum(pop_naoinformada)) %>% 
+  tidyr::pivot_longer(cols = dplyr::everything()) %>% 
+  ggplot(aes(x = forcats::fct_reorder(name, value, .desc = T),
+             y = value, fill = name)) +
+  geom_col(show.legend = F) +
+  theme_classic() +
+  scale_y_continuous(labels = scales::number_format(
+    big.mark = ".", decimal.mark = ",")) +
+  scale_fill_brewer(palette = "PuOr", direction = -1) +
+  labs(
+    x = "Raça", y = "Quantidade de pessoas",
+    title = "Distribuição racial nas unidades prisionais",
+    subtitle = "em junho de 2020"
+  )
+```
 
--   comparações por estado: taxas de encarceiramento
+Fica bastante evidente uma "predileção" por pessoas negras (aqui consideradas pretas e pardas) no sistema penitenciário. Chama atenção, também, a relevante proporção de raça não informada.
 
--   comparar taxas de encarceiramento com criminalidade
+```{r grafico_raca2}
 
-Por exemplo: disponibilidade de vagas e lotação. Mudança de perfil na população ao longo do tempo. Ver o impacto do HC coletivo das mães.
+tabela_raca %>% 
+  dplyr::group_by(sigla_uf) %>% 
+  dplyr::summarise_if(.predicate = is.numeric, sum) %>% 
+  janitor::adorn_percentages(denominator = "row") %>% 
+  #janitor::adorn_pct_formatting() %>% 
+  tidyr::pivot_longer(cols = -sigla_uf) %>% 
+  dplyr::mutate(
+    name = stringr::str_remove(name, "pop_"),
+    sigla_uf = forcats::fct_reorder(sigla_uf, value)
+  ) %>% 
+  ggplot(aes(x = sigla_uf, y = value, fill = name)) +
+  geom_col() +
+  scale_fill_brewer(palette = "Dark2", direction = -1) +
+  labs(fill = "Raça/Cor", x = "UF", y = "%",
+       title = "Distribuição racial nos Estados") +
+  scale_y_continuous(labels = scales::percent) +
+  theme_classic()
+  
+```
 
-# Conceitos penitenciários
+## Distribuição por faixas etárias
 
-Capacidade - não existe um critério claro Regime de cumprimento de pena Provisório/definitivo LEP
+```{r grafico_idade}
+
+tabela_idade <- base_perfilpessoal %>%
+  dplyr::filter(id_ano_sisdepen == 2020) %>%
+  dplyr::rowwise() %>%
+  dplyr::mutate(
+    pop_18a24 = sum(dplyr::across(
+      dplyr::matches("18a24")), na.rm = TRUE),
+    pop_25a29 = sum(dplyr::across(
+      dplyr::matches("25a29")), na.rm = TRUE),
+    pop_30a34 = sum(dplyr::across(
+      dplyr::matches("30a34")), na.rm = TRUE),
+    pop_35a45 = sum(dplyr::across(
+      dplyr::matches("35a45")), na.rm = TRUE),
+    pop_46a60 = sum(dplyr::across(
+      dplyr::matches("46a60")), na.rm = TRUE),
+    pop_61a70 = sum(dplyr::across(
+      dplyr::matches("61a70")), na.rm = TRUE),
+    pop_mais70 = sum(dplyr::across(
+      dplyr::matches("mais70")), na.rm = TRUE),
+    pop_na = sum(dplyr::across(
+      dplyr::matches("idade_naoinformada")), na.rm = TRUE)
+    ) %>%
+  dplyr::select(sigla_uf, dplyr::starts_with("pop_"))
+
+tabela_idade %>% 
+  dplyr::ungroup() %>% 
+  dplyr::summarise_if(is.numeric, sum) %>% 
+  tidyr::pivot_longer(cols = dplyr::everything()) %>% 
+  dplyr::mutate(
+    name = stringr::str_remove(name, "pop_")
+  ) %>% 
+  ggplot(aes(x = name,
+             y = value, fill = name)) +
+  geom_col(show.legend = F) +
+  theme_classic() +
+  scale_y_continuous(labels = scales::number_format(
+    big.mark = ".", decimal.mark = ",")) +
+  labs(title = "Distribuição em faixas etárias",
+       subtitle = "em junho/2020",
+       x = "Faixa etária",
+       y = "Quantidade de pessoas") +
+  scale_fill_brewer(palette = "Set1")
+```
+
+Fica claro, por fim, a grande quantidade de jovens no sistema: a maior parte das pessoas presas está na faixa abaixo dos 30 anos de idade.
 
 # TODO
 
@@ -355,4 +449,4 @@ Capacidade - não existe um critério claro Regime de cumprimento de pena Provis
 
 -   Ampliar para todas as outras perguntas do SISDEPEN
 
--   
+-   Outras análises: taxa de encarceramento, observar as proporções de incidências penais, observar com mais atenção se o HC coletivo para mães e gestantes teve impacto, etc.
