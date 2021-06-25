@@ -280,16 +280,6 @@ tabela_quantidade_presos_uf %>%
   scale_y_continuous(labels = scales::percent)
 ```
 
-\# quantidade de presos por estado
-
-\# quantidade de vagas por estado
-
-\# superlotação por estado
-
-\# proporção de crimes
-
-\# quantidade de homens e mulheres
-
 ## Comparação entre homens e mulheres presos
 
 ```{r mapas_prisao_genero}
@@ -370,7 +360,7 @@ tabela_raca %>%
   )
 ```
 
-Fica bastante evidente uma "predileção" por pessoas negras (aqui consideradas pretas e pardas) no sistema penitenciário. Chama atenção, também, a relevante proporção de raça não informada.
+Fica bastante evidente uma "predileção" por pessoas negras (aqui consideradas pretas e pardas) no sistema penitenciário.
 
 ```{r grafico_raca2}
 
@@ -446,7 +436,5 @@ Fica claro, por fim, a grande quantidade de jovens no sistema: a maior parte das
 # TODO
 
 -   Corrigir a leitura das bases dos anos de 2014 e 2015
-
 -   Ampliar para todas as outras perguntas do SISDEPEN
-
 -   Outras análises: taxa de encarceramento, observar as proporções de incidências penais, observar com mais atenção se o HC coletivo para mães e gestantes teve impacto, etc.

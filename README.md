@@ -661,16 +661,6 @@ União
 
 <img src="man/figures/README-grafico_provisorios_estado-1.png" width="100%" />
 
-\# quantidade de presos por estado
-
-\# quantidade de vagas por estado
-
-\# superlotação por estado
-
-\# proporção de crimes
-
-\# quantidade de homens e mulheres
-
 ## Comparação entre homens e mulheres presos
 
 <img src="man/figures/README-mapas_prisao_genero-1.png" width="100%" />
@@ -680,8 +670,7 @@ União
 <img src="man/figures/README-grafico_raca1-1.png" width="100%" />
 
 Fica bastante evidente uma “predileção” por pessoas negras (aqui
-consideradas pretas e pardas) no sistema penitenciário. Chama atenção,
-também, a relevante proporção de raça não informada.
+consideradas pretas e pardas) no sistema penitenciário.
 
 <img src="man/figures/README-grafico_raca2-1.png" width="100%" />
 
@@ -695,9 +684,7 @@ parte das pessoas presas está na faixa abaixo dos 30 anos de idade.
 # TODO
 
 -   Corrigir a leitura das bases dos anos de 2014 e 2015
-
 -   Ampliar para todas as outras perguntas do SISDEPEN
-
 -   Outras análises: taxa de encarceramento, observar as proporções de
     incidências penais, observar com mais atenção se o HC coletivo para
     mães e gestantes teve impacto, etc.
